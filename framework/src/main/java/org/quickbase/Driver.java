@@ -24,6 +24,7 @@ public class Driver {
             driver.manage().timeouts().pageLoadTimeout(Duration.ofMinutes(1));
             log.info("{} Driver initialized !!", testUtils.getBrowser().toUpperCase());
         } catch (Exception e) {
+            log.error(e.getStackTrace());
             throw new DriverNotInvokedException(e.getMessage());
         }
     }
