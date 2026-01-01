@@ -80,7 +80,7 @@ public class TablesPage extends BasePage {
         webDriverUtils.waitForElement(1000);
         List<WebElement> icons = iconList;
         Random randomIcon = new Random();
-        webDriverUtils.click(icons.get(randomIcon.nextInt(15)));
+        webDriverUtils.click(icons.get(randomIcon.nextInt(14)));
         log.info("Clicked on Random Icon");
         return this;
     }
