@@ -35,7 +35,7 @@ public class Runner {
         }
         TestNG tng = new TestNG();
         /**
-         * Adds the Listeners in TestN XML.
+         * Adds the Listeners in TestNG XML.
          * Adds RetryListener, ReportPortalTestNgListener.
          */
         RetryListener retryListener = new RetryListener();
