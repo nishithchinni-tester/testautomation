@@ -1,19 +1,23 @@
 package org.quickbase.testng;
+
 import org.quickbase.enums.ExecutionModes;
 import org.quickbase.utils.TestUtils;
 import org.testng.xml.XmlPackage;
 import org.testng.xml.XmlSuite;
 import org.testng.xml.XmlTest;
+
 import java.util.ArrayList;
 import java.util.List;
 
 public class UISuite {
+
     public String testPackage = "ui.tests.*";
-    public XmlSuite createUISuite(TestUtils testUtils){
+
+    public XmlSuite createUISuite(TestUtils testUtils) {
         XmlSuite suite = new XmlSuite();
         suite.setName("QB-UI-TestSuite");
 
-        if(testUtils.getExecMode().equals(ExecutionModes.PARALLEL.toString())){
+        if (testUtils.getExecMode().equals(ExecutionModes.PARALLEL.toString())) {
             suite.setParallel(XmlSuite.ParallelMode.METHODS);
             suite.setThreadCount(testUtils.getParallelCount());
         }
