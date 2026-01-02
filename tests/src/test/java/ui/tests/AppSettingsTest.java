@@ -3,7 +3,7 @@ package ui.tests;
 import org.apache.logging.log4j.LogManager;
 import org.apache.logging.log4j.Logger;
 import org.testng.Assert;
-import org.testng.annotations.BeforeTest;
+import org.testng.annotations.BeforeMethod;
 import org.testng.annotations.Test;
 import ui.TestContext;
 import ui.enums.SettingsOptions;
@@ -26,7 +26,7 @@ public class AppSettingsTest extends BaseTest {
      * Pre-Requisite : QB User Should be logged in.
      * Executing BeforeTest for every test method.
      */
-    @BeforeTest(alwaysRun = true)
+    @BeforeMethod(alwaysRun = true)
     public void login(){
         testData = TestContext.getTestData();
         applicationUtils = new ApplicationUtils(driver);
@@ -37,7 +37,7 @@ public class AppSettingsTest extends BaseTest {
      * QB User should be logged in.
      * Validating As QB user he should be able to change App Name & App Description.
      */
-    @Test(groups = {"reg"},
+    @Test(groups = {"userSettings"},
             description = "Validate QB user is able to change App Name & App Description")
     public void validateUserIsAbleToChangeAppNameAndAppDescription(){
         if(homePage.isUserOnHomePage()){
@@ -65,7 +65,7 @@ public class AppSettingsTest extends BaseTest {
      * QB User should be logged in.
      * Validating As QB user he should be able to change App Color.
      */
-    @Test(groups = {"reg"},
+    @Test(groups = {"userSettings"},
             description = "Validate QB user is able to change App Icon Color")
     public void validateUserIsAbleToChangeAppColor(){
         if(homePage.isUserOnHomePage()){
@@ -89,7 +89,7 @@ public class AppSettingsTest extends BaseTest {
      * QB User should be logged in.
      * Validating As QB user he should be able to Add New Field in existing User Table.
      */
-    @Test(groups = {"reg"},
+    @Test(groups = {"userSettings"},
             description = "Validate QB user is able to Add new Field in existing table")
     public void validateUserIsAbleToVerifyExistingTableAndAddNewField(){
         if(homePage.isUserOnHomePage()){
@@ -119,7 +119,7 @@ public class AppSettingsTest extends BaseTest {
      * QB User should be logged in.
      * Validating As QB user he should be able to create a new table from scratch.
      */
-    @Test(groups = {"reg"},
+    @Test(groups = {"userSettings"},
             description = "Validate QB user is able to Add new Table From Scratch")
     public void validateUserIsAbleToAddNewTableFromScratch(){
         if(homePage.isUserOnHomePage()){
@@ -153,7 +153,7 @@ public class AppSettingsTest extends BaseTest {
      * QB User should be logged in.
      * Validating As QB Admin user he should be able to create a new role and make it default and delete the user role.
      */
-    @Test(groups = {"reg"},
+    @Test(groups = {"userSettings"},
             description = "Validate QB user is able to add new role and set it as default and delete the user")
     public void validateUserIsAbleToAddNewRoleAndSetItAsDefaultAndDeleteRole(){
         if(homePage.isUserOnHomePage()){
@@ -179,8 +179,7 @@ public class AppSettingsTest extends BaseTest {
                     .clickOnSetDefault()
                     .clickOnRoleCheckBox(roleName)
                     .clickOnDelete()
-                    .clickOnConfirmDelete()
-            ;
+                    .clickOnConfirmDelete();
         }else{
             log.info("User is not on HomePage");
             Assert.fail("User is not on HomePage");

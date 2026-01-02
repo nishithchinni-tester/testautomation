@@ -11,7 +11,7 @@ import java.util.List;
 
 public class UISuite {
 
-    public String testPackage = "ui.tests.*";
+    final String testPackage = "ui.tests.*";
 
     public XmlSuite createUISuite(TestUtils testUtils) {
         XmlSuite suite = new XmlSuite();
@@ -22,7 +22,7 @@ public class UISuite {
             suite.setThreadCount(testUtils.getParallelCount());
         }
         XmlTest test = new XmlTest(suite);
-        test.setName("UI Execution");
+        test.setName("UI Execution for " + testUtils.getBrowser() + " Browser");
         List<XmlPackage> packages = new ArrayList<>();
         packages.add(new XmlPackage(testPackage));
         test.setPackages(packages);

@@ -4,9 +4,7 @@ import org.quickbase.Driver;
 import org.quickbase.enums.Suite;
 import org.quickbase.utils.TestUtils;
 import org.quickbase.utils.WebDriverUtils;
-import org.testng.annotations.AfterTest;
-import org.testng.annotations.BeforeSuite;
-import org.testng.annotations.BeforeTest;
+import org.testng.annotations.*;
 import ui.models.TestData;
 import ui.utils.ApplicationUtils;
 
@@ -29,7 +27,7 @@ public class BaseTest extends Driver {
     /**
      * Initialises Web-Driver according to Browser argument.
      */
-    @BeforeTest(alwaysRun = true)
+    @BeforeMethod(alwaysRun = true)
     public void setUp(){
         if(testUtils.getSuite().equalsIgnoreCase(Suite.UI.name())){
             initializeDriver();
@@ -42,7 +40,7 @@ public class BaseTest extends Driver {
     /**
      * TearDowns the Driver Object.
      */
-    @AfterTest(alwaysRun = true)
+    @AfterMethod(alwaysRun = true)
     public void tearDown(){
         if(driver!=null) {
             driver.quit();
