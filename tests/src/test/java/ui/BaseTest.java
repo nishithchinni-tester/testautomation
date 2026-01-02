@@ -15,6 +15,9 @@ public class BaseTest extends Driver {
     TestUtils testUtils = new TestUtils();
     public WebDriverUtils driverUtils = null;
 
+    /**
+     * Loads Config Data & Static Test-Data.
+     */
     @BeforeSuite(alwaysRun = true)
     public void loadData(){
         ApplicationUtils applicationUtils = new ApplicationUtils();
@@ -23,6 +26,9 @@ public class BaseTest extends Driver {
         TestContext.init(testData, testUtils);
     }
 
+    /**
+     * Initialises Web-Driver according to Browser argument.
+     */
     @BeforeTest(alwaysRun = true)
     public void setUp(){
         if(testUtils.getSuite().equalsIgnoreCase(Suite.UI.name())){
@@ -33,6 +39,9 @@ public class BaseTest extends Driver {
         }
     }
 
+    /**
+     * TearDowns the Driver Object.
+     */
     @AfterTest(alwaysRun = true)
     public void tearDown(){
         if(driver!=null) {

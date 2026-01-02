@@ -7,7 +7,6 @@ import org.apache.logging.log4j.Logger;
 import org.quickbase.customexceptions.EnvironmentNotFoundException;
 import org.quickbase.enums.PropertyKeys;
 import org.quickbase.models.EnvironmentConfig;
-
 import java.io.File;
 import java.io.FileInputStream;
 import java.io.IOException;
@@ -24,11 +23,11 @@ public class TestUtils {
     private final Logger log = LogManager.getLogger(TestUtils.class);
     public EnvironmentConfig environmentConfig = null;
 
-    public HashMap<String, String> getPropFileValues() {
-        final String propertiesFileName = "Runner.properties";
-        return getPropertiesHashMap(propertiesFileName);
-    }
-
+    /**
+     * Accepts Properties Filename and loads the properties based on filename.
+     * @param propertiesFileName
+     * @return HashMap<String,String> with properties keys and values.
+     */
     private HashMap<String, String> getPropertiesHashMap(String propertiesFileName) {
         try {
             FileInputStream ip = new FileInputStream(getAbsolutePathFromResources(propertiesFileName));
@@ -39,6 +38,33 @@ public class TestUtils {
             log.info(e.getStackTrace());
         }
         return propMap;
+    }
+
+    /**
+     * Loads environments configuration by reading env.json file under resources.
+     */
+    public void loadConfigData() {
+        ObjectMapper mapper = new ObjectMapper();
+        try {
+            String environmentFileName = "env.json";
+            List<EnvironmentConfig> allConfigs = mapper.readValue(
+                    new File(getAbsolutePathFromResources(environmentFileName)), new TypeReference<>() {
+                    });
+
+            environmentConfig = allConfigs.stream()
+                    .filter(config -> config.getEnv().equalsIgnoreCase(getEnv()))
+                    .findFirst()
+                    .orElseThrow(() -> new
+                            EnvironmentNotFoundException("Environment not found: " + getEnv()));
+            log.info("Environment Data is loaded");
+        } catch (Exception e) {
+            log.info(e.getStackTrace());
+        }
+    }
+
+    public HashMap<String, String> getPropFileValues() {
+        final String propertiesFileName = "Runner.properties";
+        return getPropertiesHashMap(propertiesFileName);
     }
 
     public HashMap<String, String> getReportPortalProperties() {
@@ -98,25 +124,6 @@ public class TestUtils {
             return Paths.get(resource.toURI()).toAbsolutePath().toString();
         } catch (URISyntaxException e) {
             throw new RuntimeException(e);
-        }
-    }
-
-    public void loadConfigData() {
-        ObjectMapper mapper = new ObjectMapper();
-        try {
-            String environmentFileName = "env.json";
-            List<EnvironmentConfig> allConfigs = mapper.readValue(
-                    new File(getAbsolutePathFromResources(environmentFileName)), new TypeReference<>() {
-                    });
-
-            environmentConfig = allConfigs.stream()
-                    .filter(config -> config.getEnv().equalsIgnoreCase(getEnv()))
-                    .findFirst()
-                    .orElseThrow(() -> new
-                            EnvironmentNotFoundException("Environment not found: " + getEnv()));
-            log.info("Environment Data is loaded");
-        } catch (Exception e) {
-            log.info(e.getStackTrace());
         }
     }
 }

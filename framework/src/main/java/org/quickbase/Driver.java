@@ -15,6 +15,9 @@ public class Driver {
     public Logger log = null;
     TestUtils testUtils = new TestUtils();
 
+    /**
+     * Initializes the Driver Object.
+     */
     public void initializeDriver() {
         try {
             log = LogManager.getLogger(Driver.class);

@@ -9,10 +9,20 @@ public class TestContext {
     private static ThreadLocal<TestData> testData = new ThreadLocal<>();
     private static ThreadLocal<TestUtils> testUtils = new ThreadLocal<>();
 
+    /**
+     * Globalises the TestData object & TestUtils Object.
+     * @param data
+     * @param tesUtils
+     */
     public static void init(TestData data, TestUtils tesUtils) {
         testData.set(data);
         testUtils.set(tesUtils);
     }
+
+    /**
+     * Globalises the Driver Object.
+     * @param drv
+     */
     public static void initDriver(WebDriver drv){
         driver.set(drv);
     }

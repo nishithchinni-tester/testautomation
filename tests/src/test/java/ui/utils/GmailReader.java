@@ -1,6 +1,5 @@
 package ui.utils;
 
-import ui.TestContext;
 import ui.models.TestData;
 
 import javax.mail.*;
@@ -15,6 +14,11 @@ public class GmailReader {
     public GmailReader(TestData testData){
         this.testData = testData;
     }
+
+    /**
+     * Reads the Mail where user provided and gets the latest mail OTP.
+     * @return QB Mail-Otp.
+     */
     public String getQuickbaseOTP() {
         String email = testData.getEmail();
         String appPassword = testData.getAppPassword();

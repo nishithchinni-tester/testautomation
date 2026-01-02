@@ -34,6 +34,12 @@ public class ApplicationUtils {
         this.driver = driver;
     }
 
+    /**
+     * Executes Login QB functionality as Pre-Requisite.
+     * @param userName
+     * @param password
+     * @return HomePage Object.
+     */
     public HomePage loginQB(String userName, String password){
         SSOPage ssoPage = new SSOPage(driver);
         HomePage homePage = null;
@@ -51,6 +57,10 @@ public class ApplicationUtils {
         return homePage;
     }
 
+    /**
+     * Loads Static Test Data which is under resources/testData.json
+     * @return TestData Object
+     */
     public TestData loadStaticTestData() {
         ObjectMapper mapper = new ObjectMapper();
         TestData testData = null;
@@ -70,6 +80,10 @@ public class ApplicationUtils {
         return testData;
     }
 
+    /**
+     * Calls Gmail Reader and gets the QB Realm code for provided QB user email.
+     * @return QBRealmCode
+     */
     public String getQBUserRealmCode(){
         GmailReader gmailReader = new GmailReader(TestContext.getTestData());
         String otp="";
