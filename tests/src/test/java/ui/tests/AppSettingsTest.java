@@ -65,7 +65,7 @@ public class AppSettingsTest extends BaseTest {
      * QB User should be logged in.
      * Validating As QB user he should be able to change App Color.
      */
-    @Test(groups = {"reg"},
+    @Test(groups = {"reg1"},
             description = "Validate QB user is able to change App Icon Color")
     public void validateUserIsAbleToChangeAppColor(){
         if(homePage.isUserOnHomePage()){
@@ -89,7 +89,7 @@ public class AppSettingsTest extends BaseTest {
      * QB User should be logged in.
      * Validating As QB user he should be able to Add New Field in existing User Table.
      */
-    @Test(groups = {"reg"},
+    @Test(groups = {"reg1"},
             description = "Validate QB user is able to Add new Field in existing table")
     public void validateUserIsAbleToVerifyExistingTableAndAddNewField(){
         if(homePage.isUserOnHomePage()){
@@ -119,7 +119,7 @@ public class AppSettingsTest extends BaseTest {
      * QB User should be logged in.
      * Validating As QB user he should be able to create a new table from scratch.
      */
-    @Test(groups = {"reg"},
+    @Test(groups = {"reg1"},
             description = "Validate QB user is able to Add new Table From Scratch")
     public void validateUserIsAbleToAddNewTableFromScratch(){
         if(homePage.isUserOnHomePage()){
@@ -153,7 +153,7 @@ public class AppSettingsTest extends BaseTest {
      * QB User should be logged in.
      * Validating As QB Admin user he should be able to create a new role and make it default and delete the user role.
      */
-    @Test(groups = {"reg"},
+    @Test(groups = {"reg1"},
             description = "Validate QB user is able to add new role and set it as default and delete the user")
     public void validateUserIsAbleToAddNewRoleAndSetItAsDefaultAndDeleteRole(){
         if(homePage.isUserOnHomePage()){

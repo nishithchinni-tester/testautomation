@@ -6,27 +6,30 @@ import org.apache.logging.log4j.LogManager;
 import org.apache.logging.log4j.Logger;
 import org.quickbase.customexceptions.EnvironmentNotFoundException;
 import org.quickbase.enums.PropertyKeys;
-import org.quickbase.extent.ReportLogger;
 import org.quickbase.models.EnvironmentConfig;
+
 import java.io.File;
 import java.io.FileInputStream;
 import java.io.IOException;
 import java.net.URISyntaxException;
 import java.net.URL;
 import java.nio.file.Paths;
+import java.time.Instant;
 import java.util.*;
 
 public class TestUtils {
 
-    public static Properties prop = null;
+    public static Properties prop = new Properties();
     public static HashMap<String, String> propMap = new HashMap<String, String>();
-    public Logger log = LogManager.getLogger(TestUtils.class);
-    public final String propertiesFileName = "Runner.properties";
-    public final String environmentFileName = "env.json";
+    private final Logger log = LogManager.getLogger(TestUtils.class);
     public EnvironmentConfig environmentConfig = null;
 
     public HashMap<String, String> getPropFileValues() {
-        prop = new Properties();
+        final String propertiesFileName = "Runner.properties";
+        return getPropertiesHashMap(propertiesFileName);
+    }
+
+    private HashMap<String, String> getPropertiesHashMap(String propertiesFileName) {
         try {
             FileInputStream ip = new FileInputStream(getAbsolutePathFromResources(propertiesFileName));
             prop.load(ip);
@@ -38,28 +41,51 @@ public class TestUtils {
         return propMap;
     }
 
-    public String getBrowser(){
+    public HashMap<String, String> getReportPortalProperties() {
+        final String reportPortalPropertiesFileName = "reportportal.properties";
+        return getPropertiesHashMap(reportPortalPropertiesFileName);
+    }
+
+    public String getBrowser() {
         return getPropFileValues().get(PropertyKeys.BROWSER.getValue());
     }
 
-    public String getEnv(){
+    public String getEnv() {
         return getPropFileValues().get(PropertyKeys.ENVIRONMENT.getValue());
     }
 
-    public String getExecMode(){
+    public String getExecMode() {
         return getPropFileValues().get(PropertyKeys.EXECMODE.getValue());
     }
 
-    public int getParallelCount(){
+    public int getParallelCount() {
         return Integer.parseInt(getPropFileValues().get(PropertyKeys.PARALLELCOUNT.getValue()));
     }
 
-    public String getSuite(){
+    public String getSuite() {
         return getPropFileValues().get(PropertyKeys.SUITE.getValue());
     }
 
-    public String getTestGroups(){
+    public String getTestGroups() {
         return getPropFileValues().get(PropertyKeys.EXECUTIONGROUPS.getValue());
+    }
+
+    public String getReportPortalUrl() {
+        return getReportPortalProperties().get(PropertyKeys.RPURL.getValue());
+    }
+
+    public String getReportPortalProject() {
+        return getReportPortalProperties().get(PropertyKeys.RPPROJECT.getValue());
+    }
+
+    public String getReportPortalLaunch() {
+        String epochString = String.valueOf(Instant.now().toEpochMilli());
+        String rpLaunch = getReportPortalProperties().get(PropertyKeys.RPLAUNCH.getValue());
+        return rpLaunch + "_" + epochString;
+    }
+
+    public String getReportPortalEnable() {
+        return getReportPortalProperties().get(PropertyKeys.RPENABLE.getValue());
     }
 
     public static String getAbsolutePathFromResources(String fileName) {
@@ -78,8 +104,10 @@ public class TestUtils {
     public void loadConfigData() {
         ObjectMapper mapper = new ObjectMapper();
         try {
+            String environmentFileName = "env.json";
             List<EnvironmentConfig> allConfigs = mapper.readValue(
-                    new File(getAbsolutePathFromResources(environmentFileName)), new TypeReference<>() {});
+                    new File(getAbsolutePathFromResources(environmentFileName)), new TypeReference<>() {
+                    });
 
             environmentConfig = allConfigs.stream()
                     .filter(config -> config.getEnv().equalsIgnoreCase(getEnv()))
@@ -87,7 +115,7 @@ public class TestUtils {
                     .orElseThrow(() -> new
                             EnvironmentNotFoundException("Environment not found: " + getEnv()));
             log.info("Environment Data is loaded");
-        }catch (Exception e){
+        } catch (Exception e) {
             log.info(e.getStackTrace());
         }
     }

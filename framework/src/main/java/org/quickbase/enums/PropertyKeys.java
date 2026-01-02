@@ -6,7 +6,11 @@ public enum PropertyKeys {
     PARALLELCOUNT("parallelCount"),
     SUITE("suite"),
     BROWSER("browser"),
-    EXECUTIONGROUPS("executionGroups");
+    EXECUTIONGROUPS("executionGroups"),
+    RPURL("rpEndpoint"),
+    RPPROJECT("rpProject"),
+    RPLAUNCH("rpLaunch"),
+    RPENABLE("rpEnable");
     private final String value;
 
     PropertyKeys(String value) {
