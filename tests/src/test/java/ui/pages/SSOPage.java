@@ -8,13 +8,15 @@ import org.openqa.selenium.support.FindBy;
 import org.openqa.selenium.support.PageFactory;
 import org.quickbase.utils.WebDriverUtils;
 
-public class SSOPage extends BasePage{
+public class SSOPage extends BasePage {
 
     WebDriver driver;
-    public SSOPage(WebDriver driver){
+
+    public SSOPage(WebDriver driver) {
         this.driver = driver;
-        PageFactory.initElements(driver,this);
+        PageFactory.initElements(driver, this);
     }
+
     WebDriverUtils driverUtils = new WebDriverUtils();
     Logger log = LogManager.getLogger(SSOPage.class);
 
@@ -24,12 +26,13 @@ public class SSOPage extends BasePage{
     @FindBy(xpath = "//*[text()='Do you have a Quickbase single sign-on (SSO) account?']")
     public WebElement ssoTextHeader;
 
-    public SignInPage clickOnNOButton(){
+    public SignInPage clickOnNOButton() {
         driverUtils.click(no);
         log.info("Clicked on NO Button");
         return createInstance(SignInPage.class, driver);
     }
-    public boolean isSSOTextHeaderVisible(){
+
+    public boolean isSSOTextHeaderVisible() {
         log.info("Validating SSO Text Header is Visible");
         return driverUtils.isElementPresent(ssoTextHeader);
     }

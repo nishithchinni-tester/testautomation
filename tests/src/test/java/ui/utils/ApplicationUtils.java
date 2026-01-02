@@ -28,7 +28,9 @@ public class ApplicationUtils {
     public WebDriver driver;
     TestUtils testUtils = new TestUtils();
     Logger log = LogManager.getLogger(ApplicationUtils.class);
-    public ApplicationUtils(){}
+
+    public ApplicationUtils() {
+    }
 
     public ApplicationUtils(WebDriver driver) {
         this.driver = driver;
@@ -36,21 +38,22 @@ public class ApplicationUtils {
 
     /**
      * Executes Login QB functionality as Pre-Requisite.
+     *
      * @param userName
      * @param password
      * @return HomePage Object.
      */
-    public HomePage loginQB(String userName, String password){
+    public HomePage loginQB(String userName, String password) {
         SSOPage ssoPage = new SSOPage(driver);
         HomePage homePage = null;
-        if(ssoPage.isSSOTextHeaderVisible()) {
+        if (ssoPage.isSSOTextHeaderVisible()) {
             homePage = ssoPage.clickOnNOButton()
                     .enterUserName(userName)
                     .enterPassword(password)
                     .clickOnSignInButton(TwoStepCodePage.class)
                     .enterRealmTwoStepCode()
                     .clickOnSignInButton(HomePage.class);
-        }else{
+        } else {
             log.info("SSO Page is not displayed");
             Assert.fail("SSO page is not displayed");
         }
@@ -59,6 +62,7 @@ public class ApplicationUtils {
 
     /**
      * Loads Static Test Data which is under resources/testData.json
+     *
      * @return TestData Object
      */
     public TestData loadStaticTestData() {
@@ -66,7 +70,8 @@ public class ApplicationUtils {
         TestData testData = null;
         try {
             List<TestData> allConfigs = mapper.readValue(
-                    new File(getAbsolutePathFromResources(testDataFileName)), new TypeReference<>() {});
+                    new File(getAbsolutePathFromResources(testDataFileName)), new TypeReference<>() {
+                    });
 
             testData = allConfigs.stream()
                     .filter(config -> config.getEnv().equalsIgnoreCase(testUtils.getEnv()))
@@ -74,7 +79,7 @@ public class ApplicationUtils {
                     .orElseThrow(() -> new
                             EnvironmentNotFoundException("Environment not found: " + testUtils.getEnv()));
             log.info("Test Data is loaded");
-        }catch (Exception e){
+        } catch (Exception e) {
             log.info(e.getStackTrace());
         }
         return testData;
@@ -82,14 +87,15 @@ public class ApplicationUtils {
 
     /**
      * Calls Gmail Reader and gets the QB Realm code for provided QB user email.
+     *
      * @return QBRealmCode
      */
-    public String getQBUserRealmCode(){
+    public String getQBUserRealmCode() {
         GmailReader gmailReader = new GmailReader(TestContext.getTestData());
-        String otp="";
-        for(int i=0; i<6; i++) {
+        String otp = "";
+        for (int i = 0; i < 6; i++) {
             otp = gmailReader.getQuickbaseOTP();
-            if(otp != null) break;
+            if (otp != null) break;
             try {
                 Thread.sleep(5000);
             } catch (InterruptedException e) {
@@ -107,7 +113,7 @@ public class ApplicationUtils {
         return String.format("#%02X%02X%02X", r, g, b);
     }
 
-    public String getRandomString(String buildString){
+    public String getRandomString(String buildString) {
         return buildString + RandomStringUtils.randomAlphanumeric(6);
     }
 

@@ -12,9 +12,11 @@ public enum SettingsOptions {
     FIELDS("Fields");
 
     private final String value;
+
     SettingsOptions(String value) {
         this.value = value;
     }
+
     @Override
     public String toString() {
         return this.value;

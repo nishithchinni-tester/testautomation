@@ -14,7 +14,8 @@ public class HomePage extends BasePage {
     public WebDriver driver;
     WebDriverUtils webDriverUtils = new WebDriverUtils();
     Logger log = LogManager.getLogger(HomePage.class);
-    public HomePage(WebDriver driver){
+
+    public HomePage(WebDriver driver) {
         this.driver = driver;
         PageFactory.initElements(driver, this);
     }
@@ -34,36 +35,36 @@ public class HomePage extends BasePage {
     @FindBy(xpath = "//*[text()='App settings']")
     public WebElement appSettings;
 
-    public boolean isUserOnHomePage(){
+    public boolean isUserOnHomePage() {
         log.info("Validating User is on HomePage");
         return webDriverUtils.isElementPresent(newAppButton);
     }
 
-    public HomePage clickOnMenu(){
+    public HomePage clickOnMenu() {
         webDriverUtils.waitForElement(2000).click(menu);
         log.info("Clicked on Waffle Menu");
         return this;
     }
 
-    public HomePage clickOnAppsMenu(){
+    public HomePage clickOnAppsMenu() {
         webDriverUtils.click(appsMenu);
         log.info("Clicked on Apps Menu");
         return this;
     }
 
-    public HomePage clickOnApp(){
-        webDriverUtils.waitForElement(5000).click(app,20);
+    public HomePage clickOnApp() {
+        webDriverUtils.waitForElement(5000).click(app, 20);
         log.info("Clicked on Application");
         return this;
     }
 
-    public AppSettingsPage clickOnAppSettings(){
+    public AppSettingsPage clickOnAppSettings() {
         webDriverUtils.click(appSettings);
         log.info("Clicked on App Settings");
-        return createInstance(AppSettingsPage.class,driver);
+        return createInstance(AppSettingsPage.class, driver);
     }
 
-    public HomePage validateAppName(String appName){
+    public HomePage validateAppName(String appName) {
         log.info("Validating App Name");
         Assert.assertEquals(webDriverUtils.getText(app), appName);
         return this;

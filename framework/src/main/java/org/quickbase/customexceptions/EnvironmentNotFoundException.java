@@ -1,6 +1,6 @@
 package org.quickbase.customexceptions;
 
-public class EnvironmentNotFoundException extends RuntimeException{
+public class EnvironmentNotFoundException extends RuntimeException {
     public EnvironmentNotFoundException(String message) {
         super(message);
     }

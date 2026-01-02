@@ -9,12 +9,14 @@ import org.openqa.selenium.support.PageFactory;
 import org.quickbase.utils.WebDriverUtils;
 import ui.utils.ApplicationUtils;
 
-public class TwoStepCodePage extends BasePage{
+public class TwoStepCodePage extends BasePage {
     WebDriver driver;
+
     public TwoStepCodePage(WebDriver driver) {
         this.driver = driver;
         PageFactory.initElements(driver, this);
     }
+
     WebDriverUtils driverUtils = new WebDriverUtils();
     ApplicationUtils applicationUtils = new ApplicationUtils();
     Logger log = LogManager.getLogger(TwoStepCodePage.class);
@@ -22,7 +24,7 @@ public class TwoStepCodePage extends BasePage{
     @FindBy(id = "TwoStepCode")
     public WebElement twoStepCode;
 
-    public SignInPage enterRealmTwoStepCode(){
+    public SignInPage enterRealmTwoStepCode() {
         try {
             Thread.sleep(7000);
         } catch (InterruptedException e) {
@@ -31,8 +33,8 @@ public class TwoStepCodePage extends BasePage{
         log.info("Getting QB User Real Code");
         String code = applicationUtils.getQBUserRealmCode();
         log.info("Retrieved QB User Real Code {}", code);
-        driverUtils.setText(twoStepCode,code);
+        driverUtils.setText(twoStepCode, code);
         log.info("Set Text in Two-Step Code {}", code);
-        return createInstance(SignInPage.class,driver);
+        return createInstance(SignInPage.class, driver);
     }
 }

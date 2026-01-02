@@ -18,7 +18,8 @@ public class WebDriverUtils {
 
     public WebDriver driver;
 
-    public WebDriverUtils(){}
+    public WebDriverUtils() {
+    }
 
     public WebDriverUtils(WebDriver driver) {
         this.driver = driver;
@@ -192,7 +193,7 @@ public class WebDriverUtils {
 
     public void click(WebElement el) {
         try {
-            waitForElementToBePresent(el,20);
+            waitForElementToBePresent(el, 20);
             el.click();
         } catch (Exception e) {
             log.error("Couldn't click the element specified ::" + e);
@@ -201,14 +202,14 @@ public class WebDriverUtils {
 
     public void click(WebElement el, int timeOut) {
         try {
-            waitForElementToBePresent(el,timeOut);
+            waitForElementToBePresent(el, timeOut);
             el.click();
         } catch (Exception e) {
             log.error("Couldn't click the element specified ::" + e);
         }
     }
 
-    public WebDriverUtils waitForElement(long millis){
+    public WebDriverUtils waitForElement(long millis) {
         try {
             Thread.sleep(millis);
         } catch (InterruptedException e) {
@@ -241,7 +242,7 @@ public class WebDriverUtils {
         }
     }
 
-    public void actionsClick(WebElement element,WebDriver driver) {
+    public void actionsClick(WebElement element, WebDriver driver) {
         Actions actions = new Actions(driver);
         actions.moveToElement(element).click().build().perform();
     }
@@ -312,7 +313,7 @@ public class WebDriverUtils {
         actions.scrollToElement(element)
                 .click()
                 .perform();
-        waitForElement(500).setText(element,text);
+        waitForElement(500).setText(element, text);
     }
 
     public void waitForElementToBeClickable(By by, int timeout) {
@@ -486,9 +487,9 @@ public class WebDriverUtils {
 
     public void setText(WebElement el, String value) {
         try {
-            waitForElementToBePresent(el,20);
+            waitForElementToBePresent(el, 20);
             waitForElement(1500);
-            clearAndFill(el,value);
+            clearAndFill(el, value);
         } catch (Exception e) {
             log.error("Unable to set text ::" + e);
         }
@@ -516,7 +517,7 @@ public class WebDriverUtils {
 
         String text = "";
         try {
-            waitForElementToBePresent(el,20);
+            waitForElementToBePresent(el, 20);
             text = el.getText();
 
         } catch (Exception e) {
@@ -528,7 +529,7 @@ public class WebDriverUtils {
     public String getValueAttribute(WebElement el) {
         String text = "";
         try {
-            waitForElementToBePresent(el,20);
+            waitForElementToBePresent(el, 20);
             text = el.getAttribute("value");
 
         } catch (Exception e) {

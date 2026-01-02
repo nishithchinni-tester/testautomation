@@ -15,9 +15,10 @@ public class Runner {
 
     /**
      * This is a Main Class to execute Test Suite.
+     *
      * @param args
      */
-    public static void main(String[] args){
+    public static void main(String[] args) {
 
         TestUtils testUtils = new TestUtils();
         /**
@@ -30,7 +31,7 @@ public class Runner {
         System.setProperty("rp.enable", testUtils.getReportPortalEnable());
 
         XmlSuite suite = null;
-        if(testUtils.getSuite().equalsIgnoreCase(Suite.UI.name())){
+        if (testUtils.getSuite().equalsIgnoreCase(Suite.UI.name())) {
             suite = new UISuite().createUISuite(testUtils);
         }
         TestNG tng = new TestNG();
@@ -42,7 +43,7 @@ public class Runner {
         ReportPortalTestNGListener reportPortalTestNGListener = new ReportPortalTestNGListener();
         tng.addListener(retryListener);
         tng.addListener(reportPortalTestNGListener);
-        if(suite!=null) {
+        if (suite != null) {
             tng.setXmlSuites(List.of(suite));
         }
         /**

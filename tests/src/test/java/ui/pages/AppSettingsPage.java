@@ -11,13 +11,15 @@ import org.quickbase.utils.WebDriverUtils;
 import org.testng.Assert;
 import ui.TestContext;
 
-public class AppSettingsPage extends BasePage{
+public class AppSettingsPage extends BasePage {
     public WebDriver driver = TestContext.getDriver();
     WebDriverUtils webDriverUtils = new WebDriverUtils();
     Logger log = LogManager.getLogger(AppSettingsPage.class);
-    public AppSettingsPage(WebDriver driver){
+
+    public AppSettingsPage(WebDriver driver) {
         PageFactory.initElements(driver, this);
     }
+
     @FindBy(xpath = "//button[text()='Edit']")
     public WebElement edit;
 
@@ -42,69 +44,80 @@ public class AppSettingsPage extends BasePage{
     @FindBy(id = "btnNewTableAppHome")
     public WebElement fromScratchButton;
 
-    public WebElement settingOptionsAndFieldValues(String option){
-        return driver.findElement(By.xpath(String.format("//a[contains(text(),'%s')]",option)));
-    }
-    public WebElement tableName(String tableName){
-        return driver.findElement(By.xpath(String.format
-                ("//table[@id='appTablesListTable']//a[text() = '%s']",tableName)));
+    public WebElement settingOptionsAndFieldValues(String option) {
+        return driver.findElement(By.xpath(String.format("//a[contains(text(),'%s')]", option)));
     }
 
-    public AppSettingsPage clickOnEdit(){
+    public WebElement tableName(String tableName) {
+        return driver.findElement(By.xpath(String.format
+                ("//table[@id='appTablesListTable']//a[text() = '%s']", tableName)));
+    }
+
+    public AppSettingsPage clickOnEdit() {
         webDriverUtils.click(edit);
         log.info("Clicked on Edit Button");
         return this;
     }
-    public AppSettingsPage changeAppName(String app){
+
+    public AppSettingsPage changeAppName(String app) {
         webDriverUtils.setText(appName, app);
-        log.info("Set Text for AppName {}",app);
+        log.info("Set Text for AppName {}", app);
         return this;
     }
-    public AppSettingsPage changeAppDescription(String desc){
+
+    public AppSettingsPage changeAppDescription(String desc) {
         webDriverUtils.setText(appDescription, desc);
-        log.info("Set Text for AppDescription {}",desc);
+        log.info("Set Text for AppDescription {}", desc);
         return this;
     }
-    public AppSettingsPage changeColorCode(String code){
+
+    public AppSettingsPage changeColorCode(String code) {
         webDriverUtils.setText(chaneColorCode, code);
-        log.info("Set Text for App Color code {}",code);
+        log.info("Set Text for App Color code {}", code);
         return this;
     }
-    public <T> T clickOnSaveButton(Class<T> pageClass){
+
+    public <T> T clickOnSaveButton(Class<T> pageClass) {
         webDriverUtils.click(save);
         log.info("Clicked on Save Button");
-        return createInstance(pageClass,driver);
+        return createInstance(pageClass, driver);
     }
-    public <T> T clickOnSaveButtonEditBox(Class<T> pageClass){
+
+    public <T> T clickOnSaveButtonEditBox(Class<T> pageClass) {
         webDriverUtils.click(saveButtonEditBox);
         log.info("Clicked on Save Button on EditBox");
-        return createInstance(pageClass,driver);
+        return createInstance(pageClass, driver);
     }
-    public void validateColorCodeIsChanged(String code){
+
+    public void validateColorCodeIsChanged(String code) {
         log.info("Validating & Asserting Color Code {}", code);
-        if(!(webDriverUtils.getValueAttribute(chaneColorCode).equalsIgnoreCase(code))){
+        if (!(webDriverUtils.getValueAttribute(chaneColorCode).equalsIgnoreCase(code))) {
             log.error("Color Code Mismatched");
             Assert.fail("Color Code Mismatch");
         }
     }
-    public <T> T clickOnSettingOptionOrFieldValue(String option, Class<T> pageClass){
+
+    public <T> T clickOnSettingOptionOrFieldValue(String option, Class<T> pageClass) {
         log.info("Scrolling to {} and Clicked on {}", option);
-        webDriverUtils.scrollToElementAndClick(settingOptionsAndFieldValues(option),driver);
-        return createInstance(pageClass,driver);
+        webDriverUtils.scrollToElementAndClick(settingOptionsAndFieldValues(option), driver);
+        return createInstance(pageClass, driver);
     }
-    public AppSettingsPage clickOnTableName(String tableName){
+
+    public AppSettingsPage clickOnTableName(String tableName) {
         log.info("Clicked on Table Name");
-        webDriverUtils.scrollToElementAndClick(tableName(tableName),driver);
+        webDriverUtils.scrollToElementAndClick(tableName(tableName), driver);
         return this;
     }
-    public AppSettingsPage clickOnNewTable(){
+
+    public AppSettingsPage clickOnNewTable() {
         log.info("Clicked on New Table Button");
-        webDriverUtils.scrollToElementAndClick(newTable,driver);
+        webDriverUtils.scrollToElementAndClick(newTable, driver);
         return this;
     }
-    public TablesPage clickOnFromScratchButton(){
+
+    public TablesPage clickOnFromScratchButton() {
         log.info("Clicked on From Scratch Button");
         webDriverUtils.click(fromScratchButton);
-        return createInstance(TablesPage.class,driver);
+        return createInstance(TablesPage.class, driver);
     }
 }

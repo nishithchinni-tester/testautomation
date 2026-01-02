@@ -8,12 +8,14 @@ import org.openqa.selenium.support.FindBy;
 import org.openqa.selenium.support.PageFactory;
 import org.quickbase.utils.WebDriverUtils;
 
-public class SignInPage extends BasePage{
+public class SignInPage extends BasePage {
     WebDriver driver;
+
     public SignInPage(WebDriver driver) {
         this.driver = driver;
         PageFactory.initElements(driver, this);
     }
+
     WebDriverUtils driverUtils = new WebDriverUtils();
     Logger log = LogManager.getLogger(SignInPage.class);
     @FindBy(name = "loginid")
@@ -25,21 +27,21 @@ public class SignInPage extends BasePage{
     @FindBy(id = "signin")
     public WebElement signIn;
 
-    public SignInPage enterUserName(String usrName){
-        driverUtils.setText(userName,usrName);
+    public SignInPage enterUserName(String usrName) {
+        driverUtils.setText(userName, usrName);
         log.info("Set Text in UserName {}", usrName);
         return this;
     }
 
-    public SignInPage enterPassword(String pswd){
-        driverUtils.setText(password,pswd);
+    public SignInPage enterPassword(String pswd) {
+        driverUtils.setText(password, pswd);
         log.info("Set Text in Password {}", pswd);
         return this;
     }
 
-    public <T> T clickOnSignInButton(Class<T> pageClass){
+    public <T> T clickOnSignInButton(Class<T> pageClass) {
         driverUtils.click(signIn);
         log.info("Clicked on SignIn Button");
-        return createInstance(pageClass,driver);
+        return createInstance(pageClass, driver);
     }
 }

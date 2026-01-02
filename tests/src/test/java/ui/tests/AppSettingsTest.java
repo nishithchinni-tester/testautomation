@@ -27,7 +27,7 @@ public class AppSettingsTest extends BaseTest {
      * Executing BeforeTest for every test method.
      */
     @BeforeMethod(alwaysRun = true)
-    public void login(){
+    public void login() {
         testData = TestContext.getTestData();
         applicationUtils = new ApplicationUtils(driver);
         homePage = applicationUtils.loginQB(testData.getUserName(), testData.getPassword());
@@ -39,8 +39,8 @@ public class AppSettingsTest extends BaseTest {
      */
     @Test(groups = {"userSettings"},
             description = "Validate QB user is able to change App Name & App Description")
-    public void validateUserIsAbleToChangeAppNameAndAppDescription(){
-        if(homePage.isUserOnHomePage()){
+    public void validateUserIsAbleToChangeAppNameAndAppDescription() {
+        if (homePage.isUserOnHomePage()) {
             String appNameChange = applicationUtils.
                     getRandomString("Sample Application_QB_User");
             String appDescChange = applicationUtils.
@@ -55,7 +55,7 @@ public class AppSettingsTest extends BaseTest {
                     .clickOnMenu()
                     .clickOnAppsMenu()
                     .validateAppName(appNameChange);
-        }else{
+        } else {
             log.info("User is not on HomePage");
             Assert.fail("User is not on HomePage");
         }
@@ -67,8 +67,8 @@ public class AppSettingsTest extends BaseTest {
      */
     @Test(groups = {"userSettings"},
             description = "Validate QB user is able to change App Icon Color")
-    public void validateUserIsAbleToChangeAppColor(){
-        if(homePage.isUserOnHomePage()){
+    public void validateUserIsAbleToChangeAppColor() {
+        if (homePage.isUserOnHomePage()) {
             String colorCode = applicationUtils.getRandomColor();
             homePage.clickOnMenu()
                     .clickOnAppsMenu()
@@ -79,7 +79,7 @@ public class AppSettingsTest extends BaseTest {
                     .clickOnSaveButtonEditBox(AppSettingsPage.class)
                     .clickOnEdit()
                     .validateColorCodeIsChanged(colorCode);
-        }else{
+        } else {
             log.info("User is not on HomePage");
             Assert.fail("User is not on HomePage");
         }
@@ -91,8 +91,8 @@ public class AppSettingsTest extends BaseTest {
      */
     @Test(groups = {"userSettings"},
             description = "Validate QB user is able to Add new Field in existing table")
-    public void validateUserIsAbleToVerifyExistingTableAndAddNewField(){
-        if(homePage.isUserOnHomePage()){
+    public void validateUserIsAbleToVerifyExistingTableAndAddNewField() {
+        if (homePage.isUserOnHomePage()) {
             String fieldValue = applicationUtils.
                     getRandomString("Custom_");
             homePage.clickOnMenu()
@@ -107,9 +107,9 @@ public class AppSettingsTest extends BaseTest {
                     .clickOnNewFieldButton()
                     .enterNewField(fieldValue)
                     .clickOnAddFieldOrCreateTableButton()
-                    .searchNewFieldValue(fieldValue,AppSettingsPage.class)
-                    .clickOnSettingOptionOrFieldValue(fieldValue,AppSettingsPage.class);
-        }else{
+                    .searchNewFieldValue(fieldValue, AppSettingsPage.class)
+                    .clickOnSettingOptionOrFieldValue(fieldValue, AppSettingsPage.class);
+        } else {
             log.info("User is not on HomePage");
             Assert.fail("User is not on HomePage");
         }
@@ -121,8 +121,8 @@ public class AppSettingsTest extends BaseTest {
      */
     @Test(groups = {"userSettings"},
             description = "Validate QB user is able to Add new Table From Scratch")
-    public void validateUserIsAbleToAddNewTableFromScratch(){
-        if(homePage.isUserOnHomePage()){
+    public void validateUserIsAbleToAddNewTableFromScratch() {
+        if (homePage.isUserOnHomePage()) {
             String tableName = applicationUtils.getRandomString("QB_User_Table");
             String singleRecord = applicationUtils.getRandomString("QB_UsrTbl_Record");
             String fieldValue = applicationUtils.getRandomString("Custom_");
@@ -143,7 +143,7 @@ public class AppSettingsTest extends BaseTest {
                     .clickOnSettingOptionOrFieldValue
                             (SettingsOptions.TABLES.getValue(), AppSettingsPage.class)
                     .clickOnTableName(tableName);
-        }else{
+        } else {
             log.info("User is not on HomePage");
             Assert.fail("User is not on HomePage");
         }
@@ -155,8 +155,8 @@ public class AppSettingsTest extends BaseTest {
      */
     @Test(groups = {"userSettings"},
             description = "Validate QB user is able to add new role and set it as default and delete the user")
-    public void validateUserIsAbleToAddNewRoleAndSetItAsDefaultAndDeleteRole(){
-        if(homePage.isUserOnHomePage()){
+    public void validateUserIsAbleToAddNewRoleAndSetItAsDefaultAndDeleteRole() {
+        if (homePage.isUserOnHomePage()) {
             String roleName = applicationUtils.getRandomString("Team Lead");
             String roleDescription = applicationUtils.getRandomString("Leading the Team");
             homePage.clickOnMenu()
@@ -180,7 +180,7 @@ public class AppSettingsTest extends BaseTest {
                     .clickOnRoleCheckBox(roleName)
                     .clickOnDelete()
                     .clickOnConfirmDelete();
-        }else{
+        } else {
             log.info("User is not on HomePage");
             Assert.fail("User is not on HomePage");
         }

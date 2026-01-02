@@ -11,10 +11,12 @@ public class SetUpDriver {
         WebDriverManager.chromedriver().setup();
         return new ChromeDriver();
     }
+
     public static WebDriver getDriverForFireFox() {
         WebDriverManager.firefoxdriver().setup();
         return new FirefoxDriver();
     }
+
     public static WebDriver getDriverForEdge() {
         WebDriverManager.edgedriver().setup();
         return new EdgeDriver();

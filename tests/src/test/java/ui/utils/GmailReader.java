@@ -11,12 +11,14 @@ import java.util.regex.Pattern;
 
 public class GmailReader {
     TestData testData;
-    public GmailReader(TestData testData){
+
+    public GmailReader(TestData testData) {
         this.testData = testData;
     }
 
     /**
      * Reads the Mail where user provided and gets the latest mail OTP.
+     *
      * @return QB Mail-Otp.
      */
     public String getQuickbaseOTP() {
@@ -34,7 +36,7 @@ public class GmailReader {
 
             // Search for the specific subject
             Message[] messages = inbox.search(new SubjectTerm(testData.getEmailSubject()));
-            
+
             if (messages.length == 0) return null;
 
             // Get the newest email

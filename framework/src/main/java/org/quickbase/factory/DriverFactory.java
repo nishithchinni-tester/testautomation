@@ -6,6 +6,7 @@ public class DriverFactory {
 
     /**
      * Accepts browser parameter and calls SetUpDriver for respective browser.
+     *
      * @param browser
      * @return WebDriver object.
      */

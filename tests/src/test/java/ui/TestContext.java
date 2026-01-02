@@ -11,6 +11,7 @@ public class TestContext {
 
     /**
      * Globalises the TestData object & TestUtils Object.
+     *
      * @param data
      * @param tesUtils
      */
@@ -21,15 +22,24 @@ public class TestContext {
 
     /**
      * Globalises the Driver Object.
+     *
      * @param drv
      */
-    public static void initDriver(WebDriver drv){
+    public static void initDriver(WebDriver drv) {
         driver.set(drv);
     }
 
-    public static WebDriver getDriver() { return driver.get(); }
-    public static TestData getTestData() { return testData.get(); }
-    public static TestUtils getTestutils() { return testUtils.get(); }
+    public static WebDriver getDriver() {
+        return driver.get();
+    }
+
+    public static TestData getTestData() {
+        return testData.get();
+    }
+
+    public static TestUtils getTestutils() {
+        return testUtils.get();
+    }
 
     public static void remove() {
         driver.remove();
