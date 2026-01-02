@@ -17,7 +17,7 @@ import ui.pages.HomePage;
 
 public class AppSettingsTest extends BaseTest {
 
-    HomePage homePage = null;
+    HomePage homePage;
     ApplicationUtils applicationUtils;
     Logger log = LogManager.getLogger(AppSettingsTest.class);
     TestData testData;
