@@ -8,7 +8,7 @@ import java.lang.reflect.InvocationTargetException;
 
 public class BasePage {
 
-    static Logger log = LogManager.getLogger(BasePage.class);
+    private final static Logger log = LogManager.getLogger(BasePage.class);
 
     /**
      * Creates an instance of a class given its Class object.
@@ -17,7 +17,7 @@ public class BasePage {
      * @param <T>   The type of the class
      * @return An instance of the class, or null if instantiation fails
      */
-    public static <T> T createInstance(Class<T> clazz, WebDriver driver) {
+    protected static <T> T createInstance(Class<T> clazz, WebDriver driver) {
         try {
             // Look for a constructor that takes WebDriver as an argument
             return clazz.getDeclaredConstructor(WebDriver.class).newInstance(driver);

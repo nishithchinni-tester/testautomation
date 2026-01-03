@@ -14,43 +14,43 @@ import java.util.Random;
 
 public class TablesPage extends BasePage {
 
-    public WebDriver driver = TestContext.getDriver();
-    WebDriverUtils webDriverUtils = new WebDriverUtils();
-    Logger log = LogManager.getLogger(TablesPage.class);
+    private final WebDriver driver = TestContext.getDriver();
+    private final WebDriverUtils webDriverUtils = new WebDriverUtils();
+    private final Logger log = LogManager.getLogger(TablesPage.class);
 
     public TablesPage(WebDriver driver) {
         PageFactory.initElements(driver, this);
     }
 
     @FindBy(id = "newFieldsButton")
-    public WebElement newFieldButton;
+    private WebElement newFieldButton;
 
     @FindBy(xpath = "//div[@class = 'fieldNameInput__input']//input")
-    public WebElement newFieldInput;
+    private WebElement newFieldInput;
 
     @FindBy(xpath = "//button[@data-test-id='dialogOkButton']")
-    public WebElement addFieldOrCreateTableButton;
+    private WebElement addFieldOrCreateTableButton;
 
     @FindBy(id = "fieldsTableSearch")
-    public WebElement searchField;
+    private WebElement searchField;
 
     @FindBy(xpath = "//div[@class = 'itemPickerV2__input']/input")
-    public WebElement tableName;
+    private WebElement tableName;
 
     @FindBy(xpath = "//button[@data-test-id= 'selectedIconTrigger']")
-    public WebElement icon;
+    private WebElement icon;
 
     @FindBy(xpath = "(//div[@data-test-id= 'icon-picker'])[1]//button")
-    public List<WebElement> iconList;
+    private List<WebElement> iconList;
 
     @FindBy(xpath = "//input[@data-test-id= 'SingleRecordInput']")
-    public WebElement singleRecord;
+    private WebElement singleRecord;
 
     @FindBy(id = "settingsJumpMenuButton")
-    public WebElement jumpMenuButton;
+    private WebElement jumpMenuButton;
 
     @FindBy(id = "settingsMenu_list_app")
-    public WebElement settingsApp;
+    private WebElement settingsApp;
 
     public TablesPage clickOnNewFieldButton() {
         webDriverUtils.click(newFieldButton);

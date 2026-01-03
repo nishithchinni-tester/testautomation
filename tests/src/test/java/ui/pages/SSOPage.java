@@ -10,21 +10,21 @@ import org.quickbase.utils.WebDriverUtils;
 
 public class SSOPage extends BasePage {
 
-    WebDriver driver;
+    private final WebDriver driver;
 
     public SSOPage(WebDriver driver) {
         this.driver = driver;
         PageFactory.initElements(driver, this);
     }
 
-    WebDriverUtils driverUtils = new WebDriverUtils();
-    Logger log = LogManager.getLogger(SSOPage.class);
+    private final WebDriverUtils driverUtils = new WebDriverUtils();
+    private final Logger log = LogManager.getLogger(SSOPage.class);
 
     @FindBy(id = "quickbaseSignin")
-    public WebElement no;
+    private WebElement no;
 
     @FindBy(xpath = "//*[text()='Do you have a Quickbase single sign-on (SSO) account?']")
-    public WebElement ssoTextHeader;
+    private WebElement ssoTextHeader;
 
     public SignInPage clickOnNOButton() {
         driverUtils.click(no);

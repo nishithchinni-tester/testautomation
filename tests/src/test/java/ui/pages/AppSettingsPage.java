@@ -12,43 +12,43 @@ import org.testng.Assert;
 import ui.TestContext;
 
 public class AppSettingsPage extends BasePage {
-    public WebDriver driver = TestContext.getDriver();
-    WebDriverUtils webDriverUtils = new WebDriverUtils();
-    Logger log = LogManager.getLogger(AppSettingsPage.class);
+    private final WebDriver driver = TestContext.getDriver();
+    private final WebDriverUtils webDriverUtils = new WebDriverUtils();
+    private final Logger log = LogManager.getLogger(AppSettingsPage.class);
 
     public AppSettingsPage(WebDriver driver) {
         PageFactory.initElements(driver, this);
     }
 
     @FindBy(xpath = "//button[text()='Edit']")
-    public WebElement edit;
+    private WebElement edit;
 
     @FindBy(xpath = "//input[contains(@class,'settingsAppName')]")
-    public WebElement appName;
+    private WebElement appName;
 
     @FindBy(xpath = "//textarea[contains(@class,'settingsAppDescription')]")
-    public WebElement appDescription;
+    private WebElement appDescription;
 
     @FindBy(xpath = "//button[text()='Save']")
-    public WebElement save;
+    private WebElement save;
 
     @FindBy(xpath = "//button[@data-test-id='dialogFinishButton']")
-    public WebElement saveButtonEditBox;
+    private WebElement saveButtonEditBox;
 
     @FindBy(xpath = "//input[@data-test-id = 'customColorPickerInputField']")
-    public WebElement chaneColorCode;
+    private WebElement chaneColorCode;
 
     @FindBy(id = "newTableMenuButtonAppHome")
-    public WebElement newTable;
+    private WebElement newTable;
 
     @FindBy(id = "btnNewTableAppHome")
-    public WebElement fromScratchButton;
+    private WebElement fromScratchButton;
 
-    public WebElement settingOptionsAndFieldValues(String option) {
+    private WebElement settingOptionsAndFieldValues(String option) {
         return driver.findElement(By.xpath(String.format("//a[contains(text(),'%s')]", option)));
     }
 
-    public WebElement tableName(String tableName) {
+    private WebElement tableName(String tableName) {
         return driver.findElement(By.xpath(String.format
                 ("//table[@id='appTablesListTable']//a[text() = '%s']", tableName)));
     }

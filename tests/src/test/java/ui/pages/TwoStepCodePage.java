@@ -10,19 +10,19 @@ import org.quickbase.utils.WebDriverUtils;
 import ui.utils.ApplicationUtils;
 
 public class TwoStepCodePage extends BasePage {
-    WebDriver driver;
+    private final WebDriver driver;
 
     public TwoStepCodePage(WebDriver driver) {
         this.driver = driver;
         PageFactory.initElements(driver, this);
     }
 
-    WebDriverUtils driverUtils = new WebDriverUtils();
-    ApplicationUtils applicationUtils = new ApplicationUtils();
-    Logger log = LogManager.getLogger(TwoStepCodePage.class);
+    private final WebDriverUtils driverUtils = new WebDriverUtils();
+    private final ApplicationUtils applicationUtils = new ApplicationUtils();
+    private final Logger log = LogManager.getLogger(TwoStepCodePage.class);
 
     @FindBy(id = "TwoStepCode")
-    public WebElement twoStepCode;
+    private WebElement twoStepCode;
 
     public SignInPage enterRealmTwoStepCode() {
         try {

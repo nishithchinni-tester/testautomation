@@ -11,9 +11,9 @@ import org.testng.Assert;
 
 public class HomePage extends BasePage {
 
-    public WebDriver driver;
-    WebDriverUtils webDriverUtils = new WebDriverUtils();
-    Logger log = LogManager.getLogger(HomePage.class);
+    private final WebDriver driver;
+    private final WebDriverUtils webDriverUtils = new WebDriverUtils();
+    private final Logger log = LogManager.getLogger(HomePage.class);
 
     public HomePage(WebDriver driver) {
         this.driver = driver;
@@ -21,19 +21,19 @@ public class HomePage extends BasePage {
     }
 
     @FindBy(id = "left-section-waffle-menu-button")
-    public WebElement menu;
+    private WebElement menu;
 
     @FindBy(xpath = "//*[@data-test-id = 'trialExperienceTopRowCreateNewAppButton']")
-    public WebElement newAppButton;
+    private WebElement newAppButton;
 
     @FindBy(xpath = "//*[@data-test-id = 'menu-link-apps']")
-    public WebElement appsMenu;
+    private WebElement appsMenu;
 
     @FindBy(xpath = "(//td[@data-test-id = 'grid-data-cell'][2]//span)[3]")
-    public WebElement app;
+    private WebElement app;
 
     @FindBy(xpath = "//*[text()='App settings']")
-    public WebElement appSettings;
+    private WebElement appSettings;
 
     public boolean isUserOnHomePage() {
         log.info("Validating User is on HomePage");
@@ -64,10 +64,9 @@ public class HomePage extends BasePage {
         return createInstance(AppSettingsPage.class, driver);
     }
 
-    public HomePage validateAppName(String appName) {
+    public void validateAppName(String appName) {
         log.info("Validating App Name");
         Assert.assertEquals(webDriverUtils.getText(app), appName);
-        return this;
     }
 
 

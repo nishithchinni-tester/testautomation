@@ -9,23 +9,23 @@ import org.openqa.selenium.support.PageFactory;
 import org.quickbase.utils.WebDriverUtils;
 
 public class SignInPage extends BasePage {
-    WebDriver driver;
+    private final WebDriver driver;
 
     public SignInPage(WebDriver driver) {
         this.driver = driver;
         PageFactory.initElements(driver, this);
     }
 
-    WebDriverUtils driverUtils = new WebDriverUtils();
-    Logger log = LogManager.getLogger(SignInPage.class);
+    private final WebDriverUtils driverUtils = new WebDriverUtils();
+    private final Logger log = LogManager.getLogger(SignInPage.class);
     @FindBy(name = "loginid")
-    public WebElement userName;
+    private WebElement userName;
 
     @FindBy(name = "password")
-    public WebElement password;
+    private WebElement password;
 
     @FindBy(id = "signin")
-    public WebElement signIn;
+    private WebElement signIn;
 
     public SignInPage enterUserName(String usrName) {
         driverUtils.setText(userName, usrName);

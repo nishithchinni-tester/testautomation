@@ -12,34 +12,34 @@ import org.testng.Assert;
 import ui.TestContext;
 
 public class RolesPage extends BasePage {
-    public WebDriver driver = TestContext.getDriver();
-    WebDriverUtils webDriverUtils = new WebDriverUtils();
-    Logger log = LogManager.getLogger(RolesPage.class);
+    private final  WebDriver driver = TestContext.getDriver();
+    private final WebDriverUtils webDriverUtils = new WebDriverUtils();
+    private Logger log = LogManager.getLogger(RolesPage.class);
 
     public RolesPage(WebDriver driver) {
         PageFactory.initElements(driver, this);
     }
 
     @FindBy(id = "newRoleButton")
-    public WebElement newRole;
+    private WebElement newRole;
 
     @FindBy(id = "addRoleName")
-    public WebElement roleName;
+    private WebElement roleName;
 
     @FindBy(id = "addRoleDesc")
-    public WebElement roleDescription;
+    private WebElement roleDescription;
 
     @FindBy(xpath = "//button[text()='OK']")
-    public WebElement okButton;
+    private WebElement okButton;
 
     @FindBy(xpath = "//a[contains(@href,'Properties')]")
-    public WebElement properties;
+    private WebElement properties;
 
     @FindBy(id = "saveButton")
-    public WebElement save;
+    private WebElement save;
 
     @FindBy(xpath = "//a[text()='Roles']")
-    public WebElement roles;
+    private WebElement roles;
 
     public WebElement clickOnCheckBox(String role) {
         String xpath = String.
