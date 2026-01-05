@@ -217,7 +217,8 @@ public class AppSettingsTest extends BaseTest {
                     .clickOnSaveButton()
                     .validateFooterIsNotDisplayed()
                     .clickOnHeader()
-                    .clickOnHeaderDefaultButton();
+                    .clickOnHeaderDefaultButton()
+                    .clickOnSaveButton();
         } else {
             log.info("User is not on HomePage");
             Assert.fail("User is not on HomePage");
