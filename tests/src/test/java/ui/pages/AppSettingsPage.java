@@ -103,10 +103,10 @@ public class AppSettingsPage extends BasePage {
         return createInstance(pageClass, driver);
     }
 
-    public AppSettingsPage clickOnTableName(String tableName) {
+    public <T> T clickOnTableName(String tableName,Class<T> pageClass) {
         webDriverUtils.scrollToElementAndClick(tableName(tableName), driver);
         log.info("Clicked on Table Name");
-        return this;
+        return createInstance(pageClass,driver);
     }
 
     public AppSettingsPage clickOnNewTable() {

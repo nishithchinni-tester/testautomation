@@ -98,7 +98,7 @@ public class AppSettingsTest extends BaseTest {
                     .clickOnAppSettings()
                     .clickOnSettingOptionOrFieldValue
                             (SettingsOptions.TABLES.getValue(), AppSettingsPage.class)
-                    .clickOnTableName(testData.getTableName())
+                    .clickOnTableName(testData.getTableName(), AppSettingsPage.class)
                     .clickOnSettingOptionOrFieldValue
                             (SettingsOptions.FIELDS.getValue(), TablesPage.class)
                     .clickOnNewFieldButton()
@@ -114,11 +114,41 @@ public class AppSettingsTest extends BaseTest {
 
     /**
      * QB User should be logged in.
-     * Validating As QB user he should be able to create a new table from scratch.
+     * Validating As QB user he should be able to Add New Field in existing User Table.
      */
     @Test(groups = {"userSettings"},
-            description = "Validate QB user is able to Add new Table From Scratch")
-    public void validateUserIsAbleToAddNewTableFromScratch() {
+            description = "Validate QB user is able to copy the existing table")
+    public void validateUserIsAbleToVerifyCopyExistingTable() {
+        if (homePage.isUserOnHomePage()) {
+            String tableName = applicationUtils.getRandomString("Copy_Of_QB_Tbl_");
+            String singleRecord = applicationUtils.getRandomString("Copy_Of_QB_Record_");
+            homePage.clickOnMenu()
+                    .clickOnAppsMenu()
+                    .clickOnApp()
+                    .clickOnAppSettings()
+                    .clickOnSettingOptionOrFieldValue
+                            (SettingsOptions.TABLES.getValue(), TablesPage.class)
+                    .clickOnCopyIconTableName(testData.getTableName())
+                    .enterCopyTableName(tableName)
+                    .enterSingleRecordOnCopyTable(singleRecord)
+                    .clickOnCopyButton()
+                    .clickOnAppSettings()
+                    .clickOnSettingOptionOrFieldValue
+                            (SettingsOptions.TABLES.getValue(), AppSettingsPage.class)
+                    .clickOnTableName(tableName, TablesPage.class);
+        } else {
+            log.info("User is not on HomePage");
+            Assert.fail("User is not on HomePage");
+        }
+    }
+
+    /**
+     * QB User should be logged in.
+     * Validating As QB user he should be able to create a new table from scratch and Delete the Table.
+     */
+    @Test(groups = {"userSettings"},
+            description = "Validate QB user is able to Add new Table From Scratch And Delete the Table")
+    public void validateUserIsAbleToAddNewTableFromScratchAndDeleteTheTable() {
         if (homePage.isUserOnHomePage()) {
             String tableName = applicationUtils.getRandomString("QB_User_Table");
             String singleRecord = applicationUtils.getRandomString("QB_UsrTbl_Record");
@@ -138,8 +168,11 @@ public class AppSettingsTest extends BaseTest {
                     .clickOnJumpSettingsMenu()
                     .clickOnAppSettingsMenuItem()
                     .clickOnSettingOptionOrFieldValue
-                            (SettingsOptions.TABLES.getValue(), AppSettingsPage.class)
-                    .clickOnTableName(tableName);
+                            (SettingsOptions.TABLES.getValue(), TablesPage.class)
+                    .clickOnDeleteBoxForTableName(tableName)
+                    .enterYesOnDeleteBox()
+                    .clickOnDeleteTableButton()
+                    .validateTableIsDeleted(tableName);
         } else {
             log.info("User is not on HomePage");
             Assert.fail("User is not on HomePage");

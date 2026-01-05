@@ -316,6 +316,14 @@ public class WebDriverUtils {
         waitForElement(500).setText(element, text);
     }
 
+    public boolean scrollToElementAndCheckElementVisible(WebElement element, WebDriver driver) {
+        Actions actions = new Actions(driver);
+        waitForElement(1500);
+        actions.scrollToElement(element)
+                .perform();
+        return isElementPresent(element);
+    }
+
     public void waitForElementToBeClickable(By by, int timeout) {
 
         try {
