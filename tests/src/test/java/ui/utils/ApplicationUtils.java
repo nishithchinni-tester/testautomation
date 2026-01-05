@@ -116,5 +116,8 @@ public class ApplicationUtils {
     public String getRandomString(String buildString) {
         return buildString + RandomStringUtils.randomAlphanumeric(6);
     }
+    public String getRandomString(String buildString, int limit) {
+        return buildString + RandomStringUtils.randomAlphanumeric(limit);
+    }
 
 }

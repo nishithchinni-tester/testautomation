@@ -8,12 +8,9 @@ import org.testng.annotations.Test;
 import ui.TestContext;
 import ui.enums.SettingsOptions;
 import ui.models.TestData;
-import ui.pages.AppSettingsPage;
-import ui.pages.RolesPage;
-import ui.pages.TablesPage;
+import ui.pages.*;
 import ui.utils.ApplicationUtils;
 import ui.BaseTest;
-import ui.pages.HomePage;
 
 public class AppSettingsTest extends BaseTest {
 
@@ -180,6 +177,47 @@ public class AppSettingsTest extends BaseTest {
                     .clickOnRoleCheckBox(roleName)
                     .clickOnDelete()
                     .clickOnConfirmDelete();
+        } else {
+            log.info("User is not on HomePage");
+            Assert.fail("User is not on HomePage");
+        }
+    }
+
+    /**
+     * QB User should be logged in.
+     * Validating As QB Admin user he should be able to Add Custom Header & Footer Text in Branding Section.
+     */
+    @Test(groups = {"userSettings"},
+            description = "Validate QB user is able to add custom header & footer text in branding section")
+    public void validateUserIsAbleToAddHeaderAndFooterCustomTextInBranding() {
+        if (homePage.isUserOnHomePage()) {
+            String headerCustomRight = applicationUtils.getRandomString("Right_",5);
+            String headerCustomLeft = applicationUtils.getRandomString("Left_",4);
+            String footerCustomRight = applicationUtils.getRandomString("Right_Footer",4);
+            homePage.clickOnMenu()
+                    .clickOnAppsMenu()
+                    .clickOnApp()
+                    .clickOnAppSettings()
+                    .clickOnSettingOptionOrFieldValue
+                            (SettingsOptions.BRANDING.getValue(), BrandingPage.class)
+                    .clickOnHeader()
+                    .clickOnHeaderBasicButton()
+                    .enterValueInLeftElement(headerCustomLeft)
+                    .enterValueInRightElement(headerCustomRight)
+                    .clickOnSaveButton()
+                    .validateNewTextIsUpdatedOnLeftHeader(headerCustomLeft)
+                    .validateNewTextIsUpdatedOnRightHeader(headerCustomRight)
+                    .clickOnFooter()
+                    .clickOnFooterBasicButton()
+                    .enterValueInRightFooterElement(footerCustomRight)
+                    .clickOnSaveButton()
+                    .validateNewTextIsUpdatedOnRightFooter(footerCustomRight)
+                    .clickOnFooter()
+                    .clickOnFooterDefaultButton()
+                    .clickOnSaveButton()
+                    .validateFooterIsNotDisplayed()
+                    .clickOnHeader()
+                    .clickOnHeaderDefaultButton();
         } else {
             log.info("User is not on HomePage");
             Assert.fail("User is not on HomePage");

@@ -98,26 +98,26 @@ public class AppSettingsPage extends BasePage {
     }
 
     public <T> T clickOnSettingOptionOrFieldValue(String option, Class<T> pageClass) {
-        log.info("Scrolling to {} and Clicked on {}", option);
         webDriverUtils.scrollToElementAndClick(settingOptionsAndFieldValues(option), driver);
+        log.info("Scrolling and Clicked on {}", option);
         return createInstance(pageClass, driver);
     }
 
     public AppSettingsPage clickOnTableName(String tableName) {
-        log.info("Clicked on Table Name");
         webDriverUtils.scrollToElementAndClick(tableName(tableName), driver);
+        log.info("Clicked on Table Name");
         return this;
     }
 
     public AppSettingsPage clickOnNewTable() {
-        log.info("Clicked on New Table Button");
         webDriverUtils.scrollToElementAndClick(newTable, driver);
+        log.info("Clicked on New Table Button");
         return this;
     }
 
     public TablesPage clickOnFromScratchButton() {
-        log.info("Clicked on From Scratch Button");
         webDriverUtils.click(fromScratchButton);
+        log.info("Clicked on From Scratch Button");
         return createInstance(TablesPage.class, driver);
     }
 }

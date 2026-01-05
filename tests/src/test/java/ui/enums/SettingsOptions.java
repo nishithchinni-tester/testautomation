@@ -9,6 +9,7 @@ public enum SettingsOptions {
     ROLES("Roles"),
     AUTOMATIONS("Automations"),
     APPMANAGEMENT("App management"),
+    BRANDING("Branding"),
     FIELDS("Fields");
 
     private final String value;
