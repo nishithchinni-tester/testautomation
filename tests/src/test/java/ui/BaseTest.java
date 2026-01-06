@@ -13,7 +13,7 @@ public class BaseTest extends Driver {
 
     private static final ThreadLocal<WebDriver> threadLocalDriver = new ThreadLocal<>();
     private final TestUtils testUtils = new TestUtils();
-    public ThreadLocal<WebDriverUtils> threadLocalDriverUtils = new ThreadLocal<>();
+    private final ThreadLocal<WebDriverUtils> threadLocalDriverUtils = new ThreadLocal<>();
     private static TestData suiteData;
     private static TestUtils suiteUtils;
 
@@ -33,7 +33,6 @@ public class BaseTest extends Driver {
      */
     @BeforeMethod(alwaysRun = true)
     public void setUp() {
-        testUtils.loadConfigData();
         TestContext.init(suiteData, suiteUtils);
         if (testUtils.getSuite().equalsIgnoreCase(Suite.UI.name())) {
             WebDriver driver = initializeDriver();
