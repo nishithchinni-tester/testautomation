@@ -61,7 +61,7 @@ public class HomePage extends BasePage {
     public AppSettingsPage clickOnAppSettings() {
         webDriverUtils.click(appSettings);
         log.info("Clicked on App Settings");
-        return createInstance(AppSettingsPage.class, driver);
+        return createInstance(AppSettingsPage.class);
     }
 
     public void validateAppName(String appName) {

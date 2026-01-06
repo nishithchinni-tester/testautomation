@@ -17,7 +17,7 @@ public class BaseTest extends Driver {
      * Loads Config Data & Static Test-Data.
      */
     @BeforeSuite(alwaysRun = true)
-    public void loadData() {
+    public synchronized void loadData() {
         ApplicationUtils applicationUtils = new ApplicationUtils();
         testUtils.loadConfigData();
         TestData testData = applicationUtils.loadStaticTestData();
@@ -28,7 +28,7 @@ public class BaseTest extends Driver {
      * Initialises Web-Driver according to Browser argument.
      */
     @BeforeMethod(alwaysRun = true)
-    public void setUp() {
+    public synchronized void setUp() {
         if (testUtils.getSuite().equalsIgnoreCase(Suite.UI.name())) {
             initializeDriver();
             TestContext.initDriver(driver);
@@ -41,7 +41,7 @@ public class BaseTest extends Driver {
      * TearDowns the Driver Object.
      */
     @AfterMethod(alwaysRun = true)
-    public void tearDown() {
+    public synchronized void tearDown() {
         if (driver != null) {
             driver.quit();
         }

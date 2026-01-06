@@ -126,7 +126,6 @@ public class BrandingPage extends BasePage {
         return this;
     }
 
-
     public BrandingPage enterValueInRightFooterElement(String text){
         webDriverUtils.setText(footerRightElement, text);
         log.info("Set Text in Right Footer Element.");
@@ -148,5 +147,4 @@ public class BrandingPage extends BasePage {
         }
         return this;
     }
-
 }

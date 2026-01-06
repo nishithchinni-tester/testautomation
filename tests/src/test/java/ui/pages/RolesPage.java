@@ -130,6 +130,4 @@ public class RolesPage extends BasePage {
         webDriverUtils.click(confirmDeleteButton);
         log.info("Clicked on Confirm Delete Button");
     }
-
-
 }

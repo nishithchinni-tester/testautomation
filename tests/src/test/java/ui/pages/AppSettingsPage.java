@@ -80,13 +80,13 @@ public class AppSettingsPage extends BasePage {
     public <T> T clickOnSaveButton(Class<T> pageClass) {
         webDriverUtils.click(save);
         log.info("Clicked on Save Button");
-        return createInstance(pageClass, driver);
+        return createInstance(pageClass);
     }
 
     public <T> T clickOnSaveButtonEditBox(Class<T> pageClass) {
         webDriverUtils.click(saveButtonEditBox);
         log.info("Clicked on Save Button on EditBox");
-        return createInstance(pageClass, driver);
+        return createInstance(pageClass);
     }
 
     public void validateColorCodeIsChanged(String code) {
@@ -100,13 +100,13 @@ public class AppSettingsPage extends BasePage {
     public <T> T clickOnSettingOptionOrFieldValue(String option, Class<T> pageClass) {
         webDriverUtils.scrollToElementAndClick(settingOptionsAndFieldValues(option), driver);
         log.info("Scrolling and Clicked on {}", option);
-        return createInstance(pageClass, driver);
+        return createInstance(pageClass);
     }
 
     public <T> T clickOnTableName(String tableName,Class<T> pageClass) {
         webDriverUtils.scrollToElementAndClick(tableName(tableName), driver);
         log.info("Clicked on Table Name");
-        return createInstance(pageClass,driver);
+        return createInstance(pageClass);
     }
 
     public AppSettingsPage clickOnNewTable() {
@@ -118,6 +118,6 @@ public class AppSettingsPage extends BasePage {
     public TablesPage clickOnFromScratchButton() {
         webDriverUtils.click(fromScratchButton);
         log.info("Clicked on From Scratch Button");
-        return createInstance(TablesPage.class, driver);
+        return createInstance(TablesPage.class);
     }
 }
