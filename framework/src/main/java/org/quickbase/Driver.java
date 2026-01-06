@@ -11,7 +11,7 @@ import java.time.Duration;
 
 public class Driver {
 
-    public WebDriver driver;
+    public static WebDriver driver;
     public Logger log = null;
     TestUtils testUtils = new TestUtils();
 
