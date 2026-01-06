@@ -36,6 +36,6 @@ public class TwoStepCodePage extends BasePage {
         log.info("Retrieved QB User Real Code {}", code);
         driverUtils.setText(twoStepCode, code);
         log.info("Set Text in Two-Step Code {}", code);
-        return createInstance(SignInPage.class,driver);
+        return createInstance(SignInPage.class);
     }
 }

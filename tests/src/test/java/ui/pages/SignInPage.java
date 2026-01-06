@@ -42,6 +42,6 @@ public class SignInPage extends BasePage {
     public <T> T clickOnSignInButton(Class<T> pageClass) {
         driverUtils.click(signIn);
         log.info("Clicked on SignIn Button");
-        return createInstance(pageClass,driver);
+        return createInstance(pageClass);
     }
 }

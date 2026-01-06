@@ -9,7 +9,6 @@ import org.openqa.selenium.support.FindBy;
 import org.openqa.selenium.support.PageFactory;
 import org.quickbase.utils.WebDriverUtils;
 import org.testng.Assert;
-import ui.TestContext;
 
 import java.util.List;
 import java.util.Random;
@@ -117,7 +116,7 @@ public class TablesPage extends BasePage {
     public <T> T searchNewFieldValue(String value, Class<T> pageClass) {
         log.info("Scrolled and set Text {} ", value);
         webDriverUtils.scrollToElementAndSetText(searchField, driver, value);
-        return createInstance(pageClass,driver);
+        return createInstance(pageClass);
     }
 
     public TablesPage enterTableName(String tabName) {
@@ -172,7 +171,7 @@ public class TablesPage extends BasePage {
     public AppSettingsPage clickOnAppSettingsMenuItem() {
         webDriverUtils.click(settingsApp);
         log.info("Clicked on App Settings Menu");
-        return createInstance(AppSettingsPage.class,driver);
+        return createInstance(AppSettingsPage.class);
     }
 
     public TablesPage clickOnDeleteBoxForTableName(String tableName) {
@@ -185,7 +184,7 @@ public class TablesPage extends BasePage {
         webDriverUtils.scrollToElementAndClick(copyButton,driver);
         log.info("Clicked on Copy Button.");
         webDriverUtils.waitForElement(5000);
-        return createInstance(HomePage.class,driver);
+        return createInstance(HomePage.class);
     }
 
     public TablesPage clickOnCopyIconTableName(String tableName) {

@@ -30,7 +30,7 @@ public class SSOPage extends BasePage {
     public SignInPage clickOnNOButton() {
         driverUtils.click(no);
         log.info("Clicked on NO Button");
-        return createInstance(SignInPage.class,driver);
+        return createInstance(SignInPage.class);
     }
 
     public boolean isSSOTextHeaderVisible() {

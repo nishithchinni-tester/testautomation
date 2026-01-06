@@ -5,8 +5,6 @@ import org.apache.logging.log4j.Logger;
 import org.openqa.selenium.WebDriver;
 import ui.TestContext;
 
-import java.lang.reflect.InvocationTargetException;
-
 public class BasePage {
 
     private final static Logger log = LogManager.getLogger(BasePage.class);
@@ -14,11 +12,11 @@ public class BasePage {
     /**
      * Updated to accept the driver explicitly.
      */
-    protected <T> T createInstance(Class<T> clazz, WebDriver driver) {
+    protected <T> T createInstance(Class<T> clazz) {
         try {
             // We pass the 'driver' argument directly into the constructor
             return clazz.getDeclaredConstructor(WebDriver.class)
-                    .newInstance(driver);
+                    .newInstance(TestContext.getDriver());
         } catch (NoSuchMethodException e) {
             log.error("No WebDriver constructor found for: {}", clazz.getName());
         } catch (Exception e) {
