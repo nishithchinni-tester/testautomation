@@ -48,7 +48,7 @@ public class AppSettingsTest extends BaseTest {
         if (currentHomePage.isUserOnHomePage()) {
             String appNameChange = utils.getRandomString("Sample Application_QB_User");
             String appDescChange = utils.getRandomString("Sample Description_QB_Desc");
-            homePage.get().clickOnMenu()
+            currentHomePage.clickOnMenu()
                     .clickOnAppsMenu()
                     .clickOnApp()
                     .clickOnAppSettings()
