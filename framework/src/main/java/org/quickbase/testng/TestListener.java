@@ -15,6 +15,11 @@ public class TestListener extends Driver implements ITestListener {
 
     private static final Logger log = LogManager.getLogger(TestListener.class);
 
+    /**
+     * On Test Failure - Attaches the screenshot in ReportPortal.
+     *
+     * @param result
+     */
     @Override
     public void onTestFailure(ITestResult result) {
 
@@ -28,7 +33,6 @@ public class TestListener extends Driver implements ITestListener {
             }
         }
     }
-
 
 
 }
