@@ -2,6 +2,7 @@ package ui.tests;
 
 import org.apache.logging.log4j.LogManager;
 import org.apache.logging.log4j.Logger;
+import org.openqa.selenium.WebDriver;
 import org.testng.Assert;
 import org.testng.annotations.BeforeMethod;
 import org.testng.annotations.Test;
@@ -14,10 +15,11 @@ import ui.BaseTest;
 
 public class AppSettingsTest extends BaseTest {
 
-    HomePage homePage;
-    ApplicationUtils applicationUtils;
+    private final ThreadLocal<HomePage> homePage = new ThreadLocal<>();
+    private final ThreadLocal<ApplicationUtils> applicationUtils = new ThreadLocal<>();
+    private final ThreadLocal<TestData> testData = new ThreadLocal<>();
+
     Logger log = LogManager.getLogger(AppSettingsTest.class);
-    TestData testData;
 
     /**
      * Pre-Requisite : QB User Should be logged in.
@@ -25,9 +27,13 @@ public class AppSettingsTest extends BaseTest {
      */
     @BeforeMethod(alwaysRun = true)
     public void login() {
-        testData = TestContext.getTestData();
-        applicationUtils = new ApplicationUtils(driver);
-        homePage = applicationUtils.loginQB(testData.getUserName(), testData.getPassword());
+        WebDriver driver = getDriver();
+        TestData data = TestContext.getTestData();
+        this.testData.set(data);
+        ApplicationUtils utils = new ApplicationUtils(driver);
+        this.applicationUtils.set(utils);
+        HomePage hp = utils.loginQB(data.getUserName(), data.getPassword());
+        this.homePage.set(hp);
     }
 
     /**
@@ -37,12 +43,12 @@ public class AppSettingsTest extends BaseTest {
     @Test(groups = {"userSettings"},
             description = "Validate QB user is able to change App Name & App Description")
     public void validateUserIsAbleToChangeAppNameAndAppDescription() {
-        if (homePage.isUserOnHomePage()) {
-            String appNameChange = applicationUtils.
-                    getRandomString("Sample Application_QB_User");
-            String appDescChange = applicationUtils.
-                    getRandomString("Sample Description_QB_Desc");
-            homePage.clickOnMenu()
+        HomePage currentHomePage = homePage.get();
+        ApplicationUtils utils = applicationUtils.get();
+        if (currentHomePage.isUserOnHomePage()) {
+            String appNameChange = utils.getRandomString("Sample Application_QB_User");
+            String appDescChange = utils.getRandomString("Sample Description_QB_Desc");
+            homePage.get().clickOnMenu()
                     .clickOnAppsMenu()
                     .clickOnApp()
                     .clickOnAppSettings()
@@ -65,9 +71,11 @@ public class AppSettingsTest extends BaseTest {
     @Test(groups = {"userSettings"},
             description = "Validate QB user is able to change App Icon Color")
     public void validateUserIsAbleToChangeAppColor() {
-        if (homePage.isUserOnHomePage()) {
-            String colorCode = applicationUtils.getRandomColor();
-            homePage.clickOnMenu()
+        HomePage currentHomePage = homePage.get();
+        ApplicationUtils utils = applicationUtils.get();
+        if (currentHomePage.isUserOnHomePage()) {
+            String colorCode = utils.getRandomColor();
+            currentHomePage.clickOnMenu()
                     .clickOnAppsMenu()
                     .clickOnApp()
                     .clickOnAppSettings()
@@ -89,16 +97,18 @@ public class AppSettingsTest extends BaseTest {
     @Test(groups = {"userSettings"},
             description = "Validate QB user is able to Add new Field in existing table")
     public void validateUserIsAbleToVerifyExistingTableAndAddNewField() {
-        if (homePage.isUserOnHomePage()) {
-            String fieldValue = applicationUtils.
-                    getRandomString("Custom_");
-            homePage.clickOnMenu()
+        HomePage currentHomePage = homePage.get();
+        ApplicationUtils utils = applicationUtils.get();
+        TestData data = testData.get();
+        if (currentHomePage.isUserOnHomePage()) {
+            String fieldValue = utils.getRandomString("Custom_");
+            currentHomePage.clickOnMenu()
                     .clickOnAppsMenu()
                     .clickOnApp()
                     .clickOnAppSettings()
                     .clickOnSettingOptionOrFieldValue
                             (SettingsOptions.TABLES.getValue(), AppSettingsPage.class)
-                    .clickOnTableName(testData.getTableName(), AppSettingsPage.class)
+                    .clickOnTableName(data.getTableName(), AppSettingsPage.class)
                     .clickOnSettingOptionOrFieldValue
                             (SettingsOptions.FIELDS.getValue(), TablesPage.class)
                     .clickOnNewFieldButton()
@@ -119,16 +129,19 @@ public class AppSettingsTest extends BaseTest {
     @Test(groups = {"userSettings"},
             description = "Validate QB user is able to copy the existing table")
     public void validateUserIsAbleToVerifyCopyExistingTable() {
-        if (homePage.isUserOnHomePage()) {
-            String tableName = applicationUtils.getRandomString("Copy_Of_QB_Tbl_");
-            String singleRecord = applicationUtils.getRandomString("Copy_Of_QB_Record_");
-            homePage.clickOnMenu()
+        HomePage currentHomePage = homePage.get();
+        ApplicationUtils utils = applicationUtils.get();
+        TestData data = testData.get();
+        if (currentHomePage.isUserOnHomePage()) {
+            String tableName = utils.getRandomString("Copy_Of_QB_Tbl_");
+            String singleRecord = utils.getRandomString("Copy_Of_QB_Record_");
+            currentHomePage.clickOnMenu()
                     .clickOnAppsMenu()
                     .clickOnApp()
                     .clickOnAppSettings()
                     .clickOnSettingOptionOrFieldValue
                             (SettingsOptions.TABLES.getValue(), TablesPage.class)
-                    .clickOnCopyIconTableName(testData.getTableName())
+                    .clickOnCopyIconTableName(data.getTableName())
                     .enterCopyTableName(tableName)
                     .enterSingleRecordOnCopyTable(singleRecord)
                     .clickOnCopyButton()
@@ -149,11 +162,13 @@ public class AppSettingsTest extends BaseTest {
     @Test(groups = {"userSettings"},
             description = "Validate QB user is able to Add new Table From Scratch And Delete the Table")
     public void validateUserIsAbleToAddNewTableFromScratchAndDeleteTheTable() {
-        if (homePage.isUserOnHomePage()) {
-            String tableName = applicationUtils.getRandomString("QB_User_Table");
-            String singleRecord = applicationUtils.getRandomString("QB_UsrTbl_Record");
-            String fieldValue = applicationUtils.getRandomString("Custom_");
-            homePage.clickOnMenu()
+        HomePage currentHomePage = homePage.get();
+        ApplicationUtils utils = applicationUtils.get();
+        if (currentHomePage.isUserOnHomePage()) {
+            String tableName = utils.getRandomString("QB_User_Table");
+            String singleRecord = utils.getRandomString("QB_UsrTbl_Record");
+            String fieldValue = utils.getRandomString("Custom_");
+            currentHomePage.clickOnMenu()
                     .clickOnAppsMenu()
                     .clickOnApp()
                     .clickOnAppSettings()
@@ -186,10 +201,12 @@ public class AppSettingsTest extends BaseTest {
     @Test(groups = {"userSettings"},
             description = "Validate QB user is able to add new role and set it as default and delete the user")
     public void validateUserIsAbleToAddNewRoleAndSetItAsDefaultAndDeleteRole() {
-        if (homePage.isUserOnHomePage()) {
-            String roleName = applicationUtils.getRandomString("Team Lead");
-            String roleDescription = applicationUtils.getRandomString("Leading the Team");
-            homePage.clickOnMenu()
+        HomePage currentHomePage = homePage.get();
+        ApplicationUtils utils = applicationUtils.get();
+        if (currentHomePage.isUserOnHomePage()) {
+            String roleName = utils.getRandomString("Team Lead");
+            String roleDescription = utils.getRandomString("Leading the Team");
+            currentHomePage.clickOnMenu()
                     .clickOnAppsMenu()
                     .clickOnApp()
                     .clickOnAppSettings()
@@ -223,11 +240,13 @@ public class AppSettingsTest extends BaseTest {
     @Test(groups = {"userSettings"},
             description = "Validate QB user is able to add custom header & footer text in branding section")
     public void validateUserIsAbleToAddHeaderAndFooterCustomTextInBranding() {
-        if (homePage.isUserOnHomePage()) {
-            String headerCustomRight = applicationUtils.getRandomString("Right_",5);
-            String headerCustomLeft = applicationUtils.getRandomString("Left_",4);
-            String footerCustomRight = applicationUtils.getRandomString("Right_Footer",4);
-            homePage.clickOnMenu()
+        HomePage currentHomePage = homePage.get();
+        ApplicationUtils utils = applicationUtils.get();
+        if (currentHomePage.isUserOnHomePage()) {
+            String headerCustomRight = utils.getRandomString("Right_",5);
+            String headerCustomLeft = utils.getRandomString("Left_",4);
+            String footerCustomRight = utils.getRandomString("Right_Footer",4);
+            currentHomePage.clickOnMenu()
                     .clickOnAppsMenu()
                     .clickOnApp()
                     .clickOnAppSettings()

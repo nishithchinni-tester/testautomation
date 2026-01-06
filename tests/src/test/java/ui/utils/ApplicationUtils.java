@@ -44,7 +44,7 @@ public class ApplicationUtils {
      * @return HomePage Object.
      */
     public HomePage loginQB(String userName, String password) {
-        SSOPage ssoPage = new SSOPage(driver);
+        SSOPage ssoPage = new SSOPage(this.driver);
         HomePage homePage = null;
         if (ssoPage.isSSOTextHeaderVisible()) {
             homePage = ssoPage.clickOnNOButton()

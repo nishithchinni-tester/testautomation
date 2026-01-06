@@ -12,11 +12,13 @@ import org.testng.Assert;
 import ui.TestContext;
 
 public class RolesPage extends BasePage {
-    private final  WebDriver driver = TestContext.getDriver();
-    private final WebDriverUtils webDriverUtils = new WebDriverUtils();
-    private Logger log = LogManager.getLogger(RolesPage.class);
+    private final  WebDriver driver;
+    private final WebDriverUtils webDriverUtils;
+    private final Logger log = LogManager.getLogger(RolesPage.class);
 
     public RolesPage(WebDriver driver) {
+        this.driver = driver;
+        webDriverUtils = new WebDriverUtils(driver);
         PageFactory.initElements(driver, this);
     }
 

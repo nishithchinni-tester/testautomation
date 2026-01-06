@@ -9,14 +9,15 @@ import org.openqa.selenium.support.FindBy;
 import org.openqa.selenium.support.PageFactory;
 import org.quickbase.utils.WebDriverUtils;
 import org.testng.Assert;
-import ui.TestContext;
 
 public class AppSettingsPage extends BasePage {
-    private final WebDriver driver = TestContext.getDriver();
-    private final WebDriverUtils webDriverUtils = new WebDriverUtils();
+    private final WebDriver driver;
+    private final WebDriverUtils webDriverUtils;
     private final Logger log = LogManager.getLogger(AppSettingsPage.class);
 
     public AppSettingsPage(WebDriver driver) {
+        this.driver = driver;
+        webDriverUtils = new WebDriverUtils(driver);
         PageFactory.initElements(driver, this);
     }
 
@@ -80,13 +81,13 @@ public class AppSettingsPage extends BasePage {
     public <T> T clickOnSaveButton(Class<T> pageClass) {
         webDriverUtils.click(save);
         log.info("Clicked on Save Button");
-        return createInstance(pageClass);
+        return createInstance(pageClass,driver);
     }
 
     public <T> T clickOnSaveButtonEditBox(Class<T> pageClass) {
         webDriverUtils.click(saveButtonEditBox);
         log.info("Clicked on Save Button on EditBox");
-        return createInstance(pageClass);
+        return createInstance(pageClass,driver);
     }
 
     public void validateColorCodeIsChanged(String code) {
@@ -100,13 +101,13 @@ public class AppSettingsPage extends BasePage {
     public <T> T clickOnSettingOptionOrFieldValue(String option, Class<T> pageClass) {
         webDriverUtils.scrollToElementAndClick(settingOptionsAndFieldValues(option), driver);
         log.info("Scrolling and Clicked on {}", option);
-        return createInstance(pageClass);
+        return createInstance(pageClass,driver);
     }
 
     public <T> T clickOnTableName(String tableName,Class<T> pageClass) {
         webDriverUtils.scrollToElementAndClick(tableName(tableName), driver);
         log.info("Clicked on Table Name");
-        return createInstance(pageClass);
+        return createInstance(pageClass,driver);
     }
 
     public AppSettingsPage clickOnNewTable() {
@@ -118,6 +119,6 @@ public class AppSettingsPage extends BasePage {
     public TablesPage clickOnFromScratchButton() {
         webDriverUtils.click(fromScratchButton);
         log.info("Clicked on From Scratch Button");
-        return createInstance(TablesPage.class);
+        return createInstance(TablesPage.class,driver);
     }
 }

@@ -11,14 +11,14 @@ import java.time.Duration;
 
 public class Driver {
 
-    public static WebDriver driver;
     public Logger log = null;
     TestUtils testUtils = new TestUtils();
 
     /**
      * Initializes the Driver Object.
      */
-    public void initializeDriver() {
+    public WebDriver initializeDriver() {
+        WebDriver driver;
         try {
             log = LogManager.getLogger(Driver.class);
             driver = DriverFactory.getDriver(testUtils.getBrowser());
@@ -30,5 +30,6 @@ public class Driver {
             log.error(e.getStackTrace());
             throw new DriverNotInvokedException(e.getMessage());
         }
+        return driver;
     }
 }

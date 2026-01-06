@@ -8,14 +8,15 @@ import org.openqa.selenium.support.FindBy;
 import org.openqa.selenium.support.PageFactory;
 import org.quickbase.utils.WebDriverUtils;
 import org.testng.Assert;
-import ui.TestContext;
 
 public class BrandingPage extends BasePage {
-    private final WebDriver driver = TestContext.getDriver();
-    private final WebDriverUtils webDriverUtils = new WebDriverUtils();
+    private final WebDriver driver;
+    private final WebDriverUtils webDriverUtils;
     private final Logger log = LogManager.getLogger(BrandingPage.class);
 
     public BrandingPage(WebDriver driver) {
+        this.driver = driver;
+        webDriverUtils = new WebDriverUtils(driver);
         PageFactory.initElements(driver, this);
     }
 

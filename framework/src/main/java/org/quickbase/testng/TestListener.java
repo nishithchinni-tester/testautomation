@@ -5,7 +5,9 @@ import org.apache.logging.log4j.LogManager;
 import org.apache.logging.log4j.Logger;
 import org.openqa.selenium.OutputType;
 import org.openqa.selenium.TakesScreenshot;
+import org.openqa.selenium.WebDriver;
 import org.quickbase.Driver;
+import org.quickbase.utils.WebDriverUtils;
 import org.testng.ITestListener;
 import org.testng.ITestResult;
 
@@ -22,7 +24,7 @@ public class TestListener extends Driver implements ITestListener {
      */
     @Override
     public void onTestFailure(ITestResult result) {
-
+        WebDriver driver = new WebDriverUtils().getDriver();
         if (driver != null) {
             try {
                 File screenshotFile = ((TakesScreenshot) driver).getScreenshotAs(OutputType.FILE);

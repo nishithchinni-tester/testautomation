@@ -11,13 +11,14 @@ import ui.utils.ApplicationUtils;
 
 public class TwoStepCodePage extends BasePage {
     private final WebDriver driver;
+    private final WebDriverUtils driverUtils;
 
     public TwoStepCodePage(WebDriver driver) {
         this.driver = driver;
+        driverUtils = new WebDriverUtils(driver);
         PageFactory.initElements(driver, this);
     }
 
-    private final WebDriverUtils driverUtils = new WebDriverUtils();
     private final ApplicationUtils applicationUtils = new ApplicationUtils();
     private final Logger log = LogManager.getLogger(TwoStepCodePage.class);
 
@@ -35,6 +36,6 @@ public class TwoStepCodePage extends BasePage {
         log.info("Retrieved QB User Real Code {}", code);
         driverUtils.setText(twoStepCode, code);
         log.info("Set Text in Two-Step Code {}", code);
-        return createInstance(SignInPage.class);
+        return createInstance(SignInPage.class,driver);
     }
 }

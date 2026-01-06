@@ -17,7 +17,7 @@ public class UISuite {
         XmlSuite suite = new XmlSuite();
         suite.setName("QB-UI-TestSuite");
 
-        if (testUtils.getExecMode().equals(ExecutionModes.PARALLEL.toString())) {
+        if (testUtils.getExecMode().equalsIgnoreCase(ExecutionModes.PARALLEL.toString())) {
             suite.setParallel(XmlSuite.ParallelMode.METHODS);
             suite.setThreadCount(testUtils.getParallelCount());
         }

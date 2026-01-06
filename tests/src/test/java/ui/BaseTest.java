@@ -1,5 +1,6 @@
 package ui;
 
+import org.openqa.selenium.WebDriver;
 import org.quickbase.Driver;
 import org.quickbase.enums.Suite;
 import org.quickbase.utils.TestUtils;
@@ -10,40 +11,63 @@ import ui.utils.ApplicationUtils;
 
 public class BaseTest extends Driver {
 
-    TestUtils testUtils = new TestUtils();
-    public WebDriverUtils driverUtils = null;
+    private static final ThreadLocal<WebDriver> threadLocalDriver = new ThreadLocal<>();
+    private final TestUtils testUtils = new TestUtils();
+    public ThreadLocal<WebDriverUtils> threadLocalDriverUtils = new ThreadLocal<>();
+    private static TestData suiteData;
+    private static TestUtils suiteUtils;
 
     /**
      * Loads Config Data & Static Test-Data.
      */
     @BeforeSuite(alwaysRun = true)
-    public synchronized void loadData() {
+    public void loadData() {
         ApplicationUtils applicationUtils = new ApplicationUtils();
         testUtils.loadConfigData();
-        TestData testData = applicationUtils.loadStaticTestData();
-        TestContext.init(testData, testUtils);
+        suiteData = applicationUtils.loadStaticTestData();
+        suiteUtils = testUtils;
     }
 
     /**
      * Initialises Web-Driver according to Browser argument.
      */
     @BeforeMethod(alwaysRun = true)
-    public synchronized void setUp() {
+    public void setUp() {
+        testUtils.loadConfigData();
+        TestContext.init(suiteData, suiteUtils);
         if (testUtils.getSuite().equalsIgnoreCase(Suite.UI.name())) {
-            initializeDriver();
+            WebDriver driver = initializeDriver();
+            threadLocalDriver.set(driver);
             TestContext.initDriver(driver);
-            driverUtils = new WebDriverUtils(driver);
-            driverUtils.openURL(testUtils.environmentConfig.getURL());
+            threadLocalDriverUtils.set(new WebDriverUtils(getDriver()));
+            getDriverUtils().openURL(testUtils.environmentConfig.getURL());
         }
+    }
+
+    /**
+     * Helper method to get the driver for the current thread.
+     */
+    public WebDriver getDriver() {
+        return threadLocalDriver.get();
+    }
+
+    /**
+     * Helper method to get the utils for the current thread.
+     */
+    public WebDriverUtils getDriverUtils() {
+        return threadLocalDriverUtils.get();
     }
 
     /**
      * TearDowns the Driver Object.
      */
     @AfterMethod(alwaysRun = true)
-    public synchronized void tearDown() {
+    public void tearDown() {
+        WebDriver driver = getDriver();
         if (driver != null) {
             driver.quit();
         }
+        threadLocalDriver.remove();
+        threadLocalDriverUtils.remove();
     }
 }

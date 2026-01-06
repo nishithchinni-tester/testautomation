@@ -12,11 +12,12 @@ import org.testng.Assert;
 public class HomePage extends BasePage {
 
     private final WebDriver driver;
-    private final WebDriverUtils webDriverUtils = new WebDriverUtils();
+    private final WebDriverUtils webDriverUtils;
     private final Logger log = LogManager.getLogger(HomePage.class);
 
     public HomePage(WebDriver driver) {
         this.driver = driver;
+        webDriverUtils = new WebDriverUtils(driver);
         PageFactory.initElements(driver, this);
     }
 
@@ -61,13 +62,12 @@ public class HomePage extends BasePage {
     public AppSettingsPage clickOnAppSettings() {
         webDriverUtils.click(appSettings);
         log.info("Clicked on App Settings");
-        return createInstance(AppSettingsPage.class);
+        return createInstance(AppSettingsPage.class,driver);
     }
 
     public void validateAppName(String appName) {
         log.info("Validating App Name");
         Assert.assertEquals(webDriverUtils.getText(app), appName);
     }
-
 
 }

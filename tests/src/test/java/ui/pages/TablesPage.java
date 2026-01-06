@@ -16,11 +16,13 @@ import java.util.Random;
 
 public class TablesPage extends BasePage {
 
-    private final WebDriver driver = TestContext.getDriver();
-    private final WebDriverUtils webDriverUtils = new WebDriverUtils();
+    private final WebDriver driver;
+    private final WebDriverUtils webDriverUtils;
     private final Logger log = LogManager.getLogger(TablesPage.class);
 
     public TablesPage(WebDriver driver) {
+        this.driver = driver;
+        webDriverUtils = new WebDriverUtils(driver);
         PageFactory.initElements(driver, this);
     }
 
@@ -115,7 +117,7 @@ public class TablesPage extends BasePage {
     public <T> T searchNewFieldValue(String value, Class<T> pageClass) {
         log.info("Scrolled and set Text {} ", value);
         webDriverUtils.scrollToElementAndSetText(searchField, driver, value);
-        return createInstance(pageClass);
+        return createInstance(pageClass,driver);
     }
 
     public TablesPage enterTableName(String tabName) {
@@ -170,7 +172,7 @@ public class TablesPage extends BasePage {
     public AppSettingsPage clickOnAppSettingsMenuItem() {
         webDriverUtils.click(settingsApp);
         log.info("Clicked on App Settings Menu");
-        return createInstance(AppSettingsPage.class);
+        return createInstance(AppSettingsPage.class,driver);
     }
 
     public TablesPage clickOnDeleteBoxForTableName(String tableName) {
@@ -183,7 +185,7 @@ public class TablesPage extends BasePage {
         webDriverUtils.scrollToElementAndClick(copyButton,driver);
         log.info("Clicked on Copy Button.");
         webDriverUtils.waitForElement(5000);
-        return createInstance(HomePage.class);
+        return createInstance(HomePage.class,driver);
     }
 
     public TablesPage clickOnCopyIconTableName(String tableName) {

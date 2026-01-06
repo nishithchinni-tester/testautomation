@@ -44,5 +44,6 @@ public class TestContext {
     public static void remove() {
         driver.remove();
         testData.remove();
+        testUtils.remove();
     }
 }

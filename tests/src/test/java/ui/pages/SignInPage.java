@@ -10,13 +10,13 @@ import org.quickbase.utils.WebDriverUtils;
 
 public class SignInPage extends BasePage {
     private final WebDriver driver;
-
+    private final WebDriverUtils driverUtils;
     public SignInPage(WebDriver driver) {
         this.driver = driver;
+        driverUtils = new WebDriverUtils(driver);
         PageFactory.initElements(driver, this);
     }
 
-    private final WebDriverUtils driverUtils = new WebDriverUtils();
     private final Logger log = LogManager.getLogger(SignInPage.class);
     @FindBy(name = "loginid")
     private WebElement userName;
@@ -42,6 +42,6 @@ public class SignInPage extends BasePage {
     public <T> T clickOnSignInButton(Class<T> pageClass) {
         driverUtils.click(signIn);
         log.info("Clicked on SignIn Button");
-        return createInstance(pageClass);
+        return createInstance(pageClass,driver);
     }
 }
