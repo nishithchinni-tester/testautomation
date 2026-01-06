@@ -4,6 +4,7 @@ import com.epam.reportportal.testng.ReportPortalTestNGListener;
 import org.quickbase.enums.Suite;
 import org.quickbase.reportportal.Secrets;
 import org.quickbase.testng.RetryListener;
+import org.quickbase.testng.TestListener;
 import org.quickbase.testng.UISuite;
 import org.quickbase.utils.TestUtils;
 import org.testng.TestNG;
@@ -37,11 +38,13 @@ public class Runner {
         TestNG tng = new TestNG();
         /**
          * Adds the Listeners in TestNG XML.
-         * Adds RetryListener, ReportPortalTestNgListener.
+         * Adds RetryListener, ReportPortalTestNgListener, TestListener.
          */
         RetryListener retryListener = new RetryListener();
+        TestListener testListener = new TestListener();
         ReportPortalTestNGListener reportPortalTestNGListener = new ReportPortalTestNGListener();
         tng.addListener(retryListener);
+        tng.addListener(testListener);
         tng.addListener(reportPortalTestNGListener);
         if (suite != null) {
             tng.setXmlSuites(List.of(suite));
