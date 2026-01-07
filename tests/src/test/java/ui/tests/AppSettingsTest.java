@@ -167,6 +167,7 @@ public class AppSettingsTest extends BaseTest {
         if (currentHomePage.isUserOnHomePage()) {
             String tableName = utils.getRandomString("QB_User_Table");
             String singleRecord = utils.getRandomString("QB_UsrTbl_Record");
+            String description = utils.getRandomString("QB_UsrTbl_Desc_");
             String fieldValue = utils.getRandomString("Custom_");
             currentHomePage.clickOnMenu()
                     .clickOnAppsMenu()
@@ -176,6 +177,7 @@ public class AppSettingsTest extends BaseTest {
                     .clickOnFromScratchButton()
                     .enterTableName(tableName)
                     .selectIcon()
+                    .enterTableDescription(description)
                     .enterSingleRecord(singleRecord)
                     .clickOnAddFieldOrCreateTableButton()
                     .enterNewField(fieldValue)

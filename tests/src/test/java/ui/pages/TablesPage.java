@@ -40,6 +40,9 @@ public class TablesPage extends BasePage {
     @FindBy(id = "tablesSearch")
     private WebElement tableSearchField;
 
+    @FindBy(xpath = "//textarea[@data-test-id = 'TableDescription']")
+    private WebElement tableDescription;
+
     @FindBy(xpath = "//div[@class = 'itemPickerV2__input']/input")
     private WebElement tableName;
 
@@ -125,6 +128,12 @@ public class TablesPage extends BasePage {
         return this;
     }
 
+    public TablesPage enterTableDescription(String description) {
+        webDriverUtils.setText(tableDescription, description);
+        log.info("Set Text in Table Description {}", description);
+        return this;
+    }
+
     public TablesPage enterCopyTableName(String tabName) {
         webDriverUtils.setText(newTableNameCopy, tabName);
         log.info("Set Text in Copy TableName {}", tabName);
@@ -207,7 +216,8 @@ public class TablesPage extends BasePage {
 
     public void validateTableIsDeleted(String tableName){
         log.info("Validating Table is Deleted or not");
-        if(webDriverUtils.isElementPresent(searchForTable(tableName))){
+        if(webDriverUtils.waitForElement(1500)
+                .isElementPresent(searchForTable(tableName))){
             Assert.fail("Table is not deleted.");
         }
     }
