@@ -54,7 +54,7 @@ public class HomePage extends BasePage {
     }
 
     public HomePage clickOnApp() {
-        webDriverUtils.waitForElement(5000).click(app, 20);
+        webDriverUtils.click(app, 20);
         log.info("Clicked on Application");
         return this;
     }

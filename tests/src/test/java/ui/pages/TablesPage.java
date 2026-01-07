@@ -192,12 +192,11 @@ public class TablesPage extends BasePage {
     public HomePage clickOnCopyButton() {
         webDriverUtils.scrollToElementAndClick(copyButton,driver);
         log.info("Clicked on Copy Button.");
-        webDriverUtils.waitForElement(5000);
         return createInstance(HomePage.class);
     }
 
     public TablesPage clickOnCopyIconTableName(String tableName) {
-        webDriverUtils.waitForElement(500).scrollToElementAndClick(copyForTable(tableName),driver);
+        webDriverUtils.scrollToElementAndClick(copyForTable(tableName),driver);
         log.info("Clicked on Copy Icon on {} table." , tableName);
         return this;
     }

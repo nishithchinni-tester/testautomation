@@ -134,14 +134,12 @@ public class BrandingPage extends BasePage {
     }
 
     public BrandingPage validateNewTextIsUpdatedOnRightFooter(String rightText){
-        webDriverUtils.waitForElement(1500);
         log.info("Validating New Right Footer text is set as Default {}", rightText);
         Assert.assertEquals(webDriverUtils.getText(footerRightContent), rightText);
         return this;
     }
 
     public BrandingPage validateFooterIsNotDisplayed(){
-        webDriverUtils.waitForElement(1500);
         log.info("Validating New Right Footer text is invisible when footer is set to default");
         if(webDriverUtils.isElementPresent(footerRightContent)){
             Assert.fail("Footer should be invisible when changed to default.");

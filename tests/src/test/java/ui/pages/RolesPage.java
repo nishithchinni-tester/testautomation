@@ -110,13 +110,12 @@ public class RolesPage extends BasePage {
     }
 
     public RolesPage clickOnSetDefault() {
-        webDriverUtils.waitForElement(1000).click(setAsDefault);
+        webDriverUtils.click(setAsDefault);
         log.info("Clicked on set Default");
         return this;
     }
 
     public RolesPage validateRoleIsSetAsDefault(String role) {
-        webDriverUtils.waitForElement(1500);
         log.info("Validating Role is set as Default {}", role);
         Assert.assertEquals(webDriverUtils.getText(defaultText), role);
         return this;
