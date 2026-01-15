@@ -1,10 +1,10 @@
 [
   {
     "env" : "stage",
-    "userName" : "nishith.chinni@gmail.com",
-    "password" : "Nishith@2718",
-    "email" : "nishith.chinni@gmail.com",
-    "appPassword" : "amfj jivu vcap mbgg",
+    "userName" : "",
+    "password" : "",
+    "email" : "",
+    "appPassword" : "",
     "emailSubject" : "Quickbase verification code for sign in",
     "appName" : "Simple Project Manager (Nishith Chinni)",
     "tableName" : "SampleNishith"
